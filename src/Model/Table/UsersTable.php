@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Model\Table;
@@ -66,7 +67,7 @@ class UsersTable extends Table
 
         $validator
             ->scalar('password')
-            ->maxLength('password', 255)
+            ->add('password', 'length', ['rule' => ['lengthBetween', 8, 20]])
             ->requirePresence('password', 'create')
             ->notEmptyString('password');
 
