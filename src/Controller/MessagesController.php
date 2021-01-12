@@ -4,11 +4,17 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\Http\Session;
+
 class MessagesController extends AppController
 {
     public function index()
     {
-        $messages = $this->paginate($this->Messages);
+        $user = $this->request->getSession()->read('Auth')->username;
+        $messages = $this->paginate(
+            $this->Messages->find()
+                ->where(['user_to' => "$user"] /*,'user_from' => "$user_from")*/)
+        );
 
         $this->set(compact('messages'));
     }
