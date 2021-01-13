@@ -6,7 +6,7 @@
             <fieldset>
                 <?php
                 //echo $this->Form->control('user_from');
-                echo $this->Form->control('Ami');
+                echo $this->Form->control('user_to');
                 echo $this->Form->control('message');
                 ?>
             </fieldset>
