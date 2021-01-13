@@ -1,28 +1,16 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Message $message
- */
-?>
 <div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List Messages'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
     <div class="column-responsive column-80">
         <div class="messages form content">
+            <h3><?= __('Nouveau message') ?></h3>
             <?= $this->Form->create($message) ?>
             <fieldset>
-                <legend><?= __('Add Message') ?></legend>
                 <?php
-                    echo $this->Form->control('user_from');
-                    echo $this->Form->control('user_to');
-                    echo $this->Form->control('message');
+                //echo $this->Form->control('user_from');
+                echo $this->Form->control('Ami');
+                echo $this->Form->control('message');
                 ?>
             </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
+            <?= $this->Form->button(__('Envoyer')) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>

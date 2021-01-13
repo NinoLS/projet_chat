@@ -33,7 +33,7 @@
             </tbody>
         </table>
     </div>
-    <div class="paginator mt-5 text-danger">
+    <div class="paginator mt-5">
         <ul class="pagination">
             <?= $this->Paginator->first('<< ' . __('première')) ?>
             <?= $this->Paginator->prev('< ' . __('précédent')) ?>
