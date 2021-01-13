@@ -1,3 +1,8 @@
+<nav class="nav justify-content-center mb-5">
+    <a href="/chat/friends" class="button text-white col-3 mx-2">Amis</a>
+    <a href="/chat/messages" class="button text-white col-3 mx-2">Messages</a>
+    <a href="/chat/users/logout" class="button text-white col-3 mx-2">Déconnexion</a>
+</nav>
 <div class="messages index content col-8 mx-auto">
     <h3><?= __('Conversations') ?></h3>
     <div class="table-responsive">
