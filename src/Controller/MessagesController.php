@@ -30,9 +30,11 @@ class MessagesController extends AppController
 
     public function add()
     {
+        $user = $this->request->getSession()->read('Auth')->username;
         $message = $this->Messages->newEmptyEntity();
         if ($this->request->is('post')) {
             $message = $this->Messages->patchEntity($message, $this->request->getData());
+            $message['user_from'] = $user;
             if ($this->Messages->save($message)) {
                 $this->Flash->success(__('The message has been saved.'));
 
@@ -79,11 +81,19 @@ class MessagesController extends AppController
         $messages = $this->Messages->find()
             ->where([
                 'user_from' => "$user",
-                'user_to'   => "$friend_with"
-            ]);
-
-
+                'user_to'   => "$friend_with",
+            ])
+            ->order(['created' => 'DESC']);
         $messages = $this->paginate($messages);
-        $this->set(compact('messages', 'friend_with'));
+
+        $messages2 = $this->Messages->find()
+            ->where([
+                'user_to' => "$user",
+                'user_from'   => "$friend_with",
+            ])
+            ->order(['created' => 'DESC']);
+        $messages2 = $this->paginate($messages2);
+
+        $this->set(compact('messages', 'messages2', 'friend_with'));
     }
 }
