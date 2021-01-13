@@ -1,14 +1,43 @@
 <div class="messages index content col-8 mx-auto">
-    <h3><?= __("Conversation $friend_with") ?></h3>
+    <h3><?= __("Conversation avec 
+                    <span class='text-success'>$friend_with</span>")
+        ?></h3>
     <div class="table-responsive">
         <table>
             <tbody>
-                <?php foreach ($messages as $message) : ?>
+                <?php
+                $max = max(sizeof($messages), sizeof($messages2));
+                for ($i = 0; $i < $max; $i++) { ?>
+                    <?php if (!empty($messages->skip($i)->first())) { ?>
+
+                        <tr class="float-right">
+                            <td><?php echo
+                                "<span class='text-dark'>" . $messages->skip($i)->first()->message . "</td></span>"
+                                    .
+                                    "<td><span class='text-dark'>" .  $messages->skip($i)->first()->created . "</span>"; ?></td>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                    <?php if (!empty($messages2->skip($i)->first())) { ?>
+                        <tr>
+                            <td><?php echo
+                                "<span class='text-dark mx-5'>" . $messages2->skip($i)->first()->created . "</span></td>"
+                                    .
+                                    "<td><span class='text-success mx-5'>" . $messages2->skip($i)->first()->message . "</span>"; ?></td>
+                        </tr>
+                    <?php } ?>
+                <?php
+                }
+
+                /*  foreach ($messages as $message) : ?>
+                   
                     <tr>
-                        <td><?php print_r($message) ;?></td>
-                        <!--<a href="/chat/friends/conv/<?= h($message->message) ?>"><?= h($conv->friend_with) ?></a>-->
+                        <td><?php echo
+                            "<span class='text-dark mx-5'>" . $message2->created . "</span>"
+                                .
+                                "<span class='text-dark mx-5'>" . $message2->message . "</span>"; ?></td>
                     </tr>
-                <?php endforeach; ?>
+                <?php endforeach;   */ ?>
             </tbody>
         </table>
     </div>
