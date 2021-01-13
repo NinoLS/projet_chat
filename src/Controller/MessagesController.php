@@ -79,21 +79,27 @@ class MessagesController extends AppController
     {
         $user = $this->request->getSession()->read('Auth')->username;
         $messages = $this->Messages->find()
-            ->where([
-                'user_from' => "$user",
-                'user_to'   => "$friend_with",
-            ])
-            ->order(['created' => 'DESC']);
+            ->where(
+                [
+                    'OR' =>
+                    [
+                        [
+                            'user_from' => "$user",
+                            'user_to'   => "$friend_with"
+                        ],
+                        [
+                            'user_from' => "$friend_with",
+                            'user_to'   => "$user"
+                        ]
+
+                    ]
+                ]
+            )
+            ->order(['created' => 'ASC']);
         $messages = $this->paginate($messages);
 
-        $messages2 = $this->Messages->find()
-            ->where([
-                'user_to' => "$user",
-                'user_from'   => "$friend_with",
-            ])
-            ->order(['created' => 'DESC']);
-        $messages2 = $this->paginate($messages2);
 
-        $this->set(compact('messages', 'messages2', 'friend_with'));
+
+        $this->set(compact('messages', 'friend_with'));
     }
 }

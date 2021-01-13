@@ -6,38 +6,24 @@
         <table>
             <tbody>
                 <?php
-                $max = max(sizeof($messages), sizeof($messages2));
-                for ($i = 0; $i < $max; $i++) { ?>
-                    <?php if (!empty($messages->skip($i)->first())) { ?>
-
-                        <tr class="float-right">
-                            <td><?php echo
-                                "<span class='text-dark'>" . $messages->skip($i)->first()->message . "</td></span>"
-                                    .
-                                    "<td><span class='text-dark'>" .  $messages->skip($i)->first()->created . "</span>"; ?></td>
-                            </td>
-                        </tr>
-                    <?php } ?>
-                    <?php if (!empty($messages2->skip($i)->first())) { ?>
-                        <tr>
-                            <td><?php echo
-                                "<span class='text-dark mx-5'>" . $messages2->skip($i)->first()->created . "</span></td>"
-                                    .
-                                    "<td><span class='text-success mx-5'>" . $messages2->skip($i)->first()->message . "</span>"; ?></td>
-                        </tr>
-                    <?php } ?>
-                <?php
-                }
-
-                /*  foreach ($messages as $message) : ?>
-                   
+                $i = 0;
+                foreach ($messages as $message) { ?>
                     <tr>
-                        <td><?php echo
-                            "<span class='text-dark mx-5'>" . $message2->created . "</span>"
-                                .
-                                "<span class='text-dark mx-5'>" . $message2->message . "</span>"; ?></td>
+                        <td class="col-5">
+                            <?php
+                            if ($messages->skip($i)->first()->user_from == $friend_with) {
+                                echo "<span class='text-dark'>";
+                            } else echo "<span class='text-success float-right mr-5'>";
+                            ?>
+                            <?= $messages->skip($i)->first()->message ?></span>
+                        </td>
+                        <td class="col-3">
+                            <span class='text-dark'> <?= $messages->skip($i)->first()->created ?></span>
+                        </td>
                     </tr>
-                <?php endforeach;   */ ?>
+
+                <?php $i++;
+                } ?>
             </tbody>
         </table>
     </div>
