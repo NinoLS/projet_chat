@@ -72,4 +72,18 @@ class MessagesController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function conv($friend_with)
+    {
+        $user = $this->request->getSession()->read('Auth')->username;
+        $messages = $this->Messages->find()
+            ->where([
+                'user_from' => "$user",
+                'user_to'   => "$friend_with"
+            ]);
+
+
+        $messages = $this->paginate($messages);
+        $this->set(compact('messages', 'friend_with'));
+    }
 }
