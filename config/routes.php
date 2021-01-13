@@ -53,7 +53,7 @@ $routes->scope('/', function (RouteBuilder $builder) {
      * to use (in this case, templates/Pages/home.php)...
      */
     $builder->connect('/', ['controller' => 'Friends', 'action' => 'conversations']);
-    $builder->redirect('/chat/users/logout', ['controller' => 'Friends', 'action' => 'conversations']);
+    $builder->redirect('/chat/*', ['controller' => 'Friends', 'action' => 'conversations']);
 
     /*
      * ...and connect the rest of 'Pages' controller's URLs.
