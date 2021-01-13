@@ -9,7 +9,11 @@ class FriendsController extends AppController
 {
     public function index()
     {
-        $friends = $this->paginate($this->Friends);
+        $user = $this->request->getSession()->read('Auth')->username;
+        $friends = $this->paginate(
+            $this->Friends->find()
+                ->where(['username' => "$user"])
+        );
 
         $this->set(compact('friends'));
     }
@@ -42,5 +46,16 @@ class FriendsController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function conversations()
+    {
+        $user = $this->request->getSession()->read('Auth')->username;
+
+        $conversations = $this->Friends->find()
+            ->where(['username' => "$user"]);
+
+        $conversations = $this->paginate($conversations);
+        $this->set(compact('conversations'));
     }
 }
