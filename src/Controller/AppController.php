@@ -23,8 +23,7 @@ class AppController extends Controller
     public function beforeFilter(\Cake\Event\EventInterface $event)
     {
         parent::beforeFilter($event);
-        // pour tous les contrôleurs de notre application, rendre les actions
-        // index et view publiques, en ignorant la vérification d'authentification
-        $this->Authentication->addUnauthenticatedActions(['index', 'view']);
+        //on n'autorise pas la vue des messages si pas connecté
+        //$this->Authentication->addUnauthenticatedActions(['index', 'view']);
     }
 }
