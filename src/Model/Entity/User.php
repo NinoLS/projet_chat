@@ -10,7 +10,6 @@ use Authentication\PasswordHasher\DefaultPasswordHasher;
 class User extends Entity
 {
     protected $_accessible = [
-        'username' => true,
         'password' => true,
         'created' => true,
         'modified' => true,

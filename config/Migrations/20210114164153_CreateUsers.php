@@ -5,6 +5,8 @@ use Migrations\AbstractMigration;
 
 class CreateUsers extends AbstractMigration
 {
+    public $autoId = false;
+
     /**
      * Change Method.
      *
@@ -32,6 +34,9 @@ class CreateUsers extends AbstractMigration
         $table->addColumn('modified', 'datetime', [
             'default' => null,
             'null' => false,
+        ]);
+        $table->addPrimaryKey([
+            'username',
         ]);
         $table->create();
     }
