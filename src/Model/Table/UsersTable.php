@@ -43,6 +43,11 @@ class UsersTable extends Table
         $this->setTable('users');
 
         $this->addBehavior('Timestamp');
+
+        $this->hasMany('Friends', [
+            'foreignKey' => 'username',
+            'saveStrategy' => 'replace',
+        ]);
     }
 
     /**
