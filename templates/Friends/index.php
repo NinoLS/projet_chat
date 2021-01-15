@@ -50,7 +50,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($i_added_them as $request) : ?>
+                <?php foreach ($users_i_added as $request) : ?>
                     <tr>
                         <td><?= h($request->friend_with) ?></td>
                         <td><?= h($request->created) ?></td>
@@ -87,7 +87,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($they_added_me as $request) : ?>
+                <?php foreach ($users_added_me as $request) : ?>
                     <tr>
                         <td><?= h($request->username) ?></td>
                         <td><?= h($request->created) ?></td>

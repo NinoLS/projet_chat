@@ -11,48 +11,69 @@ class FriendsController extends AppController
     {
         $user = $this->request->getSession()->read('Auth')->username;
 
-        //my friends + my requests
-        $friends = $this->paginate($this->Friends
-            ->find()
-            ->where(['username' => "$user"]));
-
-
         //users who added me
-        $friends_tmp = $this->paginate($this->Friends
+        $users_added_me = $this->paginate($this->Friends
             ->find()
             ->where(['friend_with' => "$user"]));
-        $friends_tmp = compact('friends_tmp');
+        $users_added_me = compact('users_added_me');
 
-        //get their username
-        $friends_with_me = array();
-        foreach ($friends_tmp as $friend) {
-            if (!empty($friend->first()->username))
-                array_push($friends_with_me, $friend->first()->username);
+        //users who i added
+        $users_i_added = $this->paginate($this->Friends
+            ->find()
+            ->where(['username' => "$user"]));
+        $users_i_added = compact('users_i_added');
+
+        //get their names
+        $names_added_me = array();
+        $names_I_added = array();
+        foreach ($users_added_me as $users_tab) {
+            foreach ($users_tab as $user_tab) {
+                if (!empty($user_tab->username))
+                    array_push($names_added_me, $user_tab->username);
+            }
+        }
+        foreach ($users_i_added as $users_tab) {
+            foreach ($users_tab as $user_tab) {
+                if (!empty($user_tab->friend_with))
+                    array_push($names_I_added, $user_tab->friend_with);
+            }
         }
 
-        //my friends only
-        $friends = $this->paginate($this->Friends->find()
-            ->where([
-                'username' => "$user",
-                'friend_with IN' => $friends_with_me
-            ]));
+        //MY FRIENDS
+        $names_friends = array_intersect($names_I_added, $names_added_me);
+        $friends = $this->paginate(
+            $this->Friends->find()
+                ->where([
+                    'username' => "$user",
+                    'friend_with IN' => ($names_friends != array()) ? $names_friends : ['null']
+                ])
+        );
 
-        //users who added me only
-        $i_added_them = $this->paginate($this->Friends->find()
-            ->where([
-                'username' => "$user",
-                'friend_with NOT IN' => $friends_with_me
-            ]));
+        //USERS WHO I ADDED (only)
+        $names_tmp = array_diff($names_I_added, $names_friends);
+        $users_i_added = $this->paginate(
+            $this->Friends->find()
+                ->where([
+                    'username' => "$user",
+                    'friend_with IN' => ($names_tmp != array()) ? $names_tmp : ['null'],
+                ])
+        );
 
-        //my request
-        $they_added_me = $this->paginate($this->Friends->find()
-            ->where([
-                'username NOT IN' => $friends_with_me,
-                'friend_with' => "$user"
-            ]));
+        //USERS WHO ADDED ME (only)
+        $names_tmp = array_diff($names_added_me, $names_friends);
+        $users_added_me = $this->paginate(
+            $this->Friends->find()
+                ->where([
+                    'username IN' => ($names_tmp != array()) ? $names_tmp : ['null'],
+                    'friend_with' => "$user"
+                ])
+        );
 
 
-        $this->set(compact('friends', 'i_added_them', 'they_added_me'));
+
+
+
+        $this->set(compact('friends', 'users_added_me', 'users_i_added'));
     }
 
     public function add()
