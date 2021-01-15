@@ -110,10 +110,44 @@ class FriendsController extends AppController
     {
         $user = $this->request->getSession()->read('Auth')->username;
 
-        $conversations = $this->Friends->find()
-            ->where(['username' => "$user"]);
+        //users who added me
+        $users_added_me = $this->paginate($this->Friends
+            ->find()
+            ->where(['friend_with' => "$user"]));
+        $users_added_me = compact('users_added_me');
 
-        $$conversations = $this->paginate($conversations);
+        //users who i added
+        $users_i_added = $this->paginate($this->Friends
+            ->find()
+            ->where(['username' => "$user"]));
+        $users_i_added = compact('users_i_added');
+
+        //get their names
+        $names_added_me = array();
+        $names_I_added = array();
+        foreach ($users_added_me as $users_tab) {
+            foreach ($users_tab as $user_tab) {
+                if (!empty($user_tab->username))
+                    array_push($names_added_me, $user_tab->username);
+            }
+        }
+        foreach ($users_i_added as $users_tab) {
+            foreach ($users_tab as $user_tab) {
+                if (!empty($user_tab->friend_with))
+                    array_push($names_I_added, $user_tab->friend_with);
+            }
+        }
+
+        //MY FRIENDS CONVERSATIONS
+        $names_friends = array_intersect($names_I_added, $names_added_me);
+        $conversations = $this->paginate(
+            $this->Friends->find()
+                ->where([
+                    'username' => "$user",
+                    'friend_with IN' => ($names_friends != array()) ? $names_friends : ['null']
+                ])
+        );
+
         $this->set(compact('conversations'));
     }
 }
