@@ -48,6 +48,16 @@ class UsersTable extends Table
             'foreignKey' => 'username',
             'saveStrategy' => 'replace',
         ]);
+
+        /* $this->hasMany('Friends', [
+            'foreignKey' => 'friend_with',
+            'saveStrategy' => 'replace',
+        ]); */
+
+        $this->hasMany('Messages', [
+            'foreignKey' => 'user_from',
+            'saveStrategy' => 'replace',
+        ]);
     }
 
     /**
