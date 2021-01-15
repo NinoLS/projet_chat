@@ -51,7 +51,7 @@ class FriendsTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         //CHANGEMENT: friend_with 
-        $rules->add($rules->isUnique(['friend_with']), ['errorField' => 'friend_with']);
+        $rules->add($rules->isUnique(['username', 'friend_with']), ['errorField' => 'friend_with']);
         $rules->add($rules->existsIn('friend_with', 'Users'));
         return $rules;
     }
