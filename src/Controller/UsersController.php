@@ -60,6 +60,46 @@ class UsersController extends AppController
         $user = $this->Users->get($id);
         if ($this->Users->delete($user)) {
             $this->Flash->success(__('The user has been deleted.'));
+
+            /* relative records */
+            //in FRIENDS table
+            $in_friends = $this->paginate($this->Users->Friends->find()
+                ->where([
+                    'OR' =>
+                    [
+                        [
+                            'username' => $user->username,
+                        ],
+                        [
+                            'friend_with' => $user->username,
+                        ]
+                    ]
+                ]));
+
+            foreach ($in_friends as $record) {
+                $this->Users->Friends->delete($record);
+            }
+
+            //in MESSAGES table
+            $in_messages = $this->paginate($this->Users->Messages->find()
+                ->where([
+                    'OR' =>
+                    [
+                        [
+                            'user_from' => $user->username,
+                        ],
+                        [
+                            'user_to' => $user->username,
+                        ]
+                    ]
+                ]));
+
+            foreach ($in_messages as $record) {
+                $this->Users->Messages->delete($record);
+            }
+
+
+            //in MESSAGES table
         } else {
             $this->Flash->error(__('The user could not be deleted. Please, try again.'));
         }

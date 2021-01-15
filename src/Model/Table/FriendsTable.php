@@ -20,6 +20,16 @@ class FriendsTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+
+        $this->belongsTo('Users', [
+            'foreignKey' => 'username',
+            'joinType' => 'INNER',
+        ]);
+
+        /* $this->belongsTo('Users', [
+            'foreignKey' => 'friend_with',
+            'joinType' => 'INNER',
+        ]); */
     }
 
     public function validationDefault(Validator $validator): Validator
@@ -46,8 +56,8 @@ class FriendsTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         //CHANGEMENT: friend_with 
-        $rules->add($rules->isUnique(['friend_with']), ['errorField' => 'friend_with']);
-
+        $rules->add($rules->isUnique(['username', 'friend_with']), ['errorField' => 'friend_with']);
+        $rules->add($rules->existsIn('friend_with', 'Users'));
         return $rules;
     }
 }

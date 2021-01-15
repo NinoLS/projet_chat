@@ -41,10 +41,23 @@ class UsersTable extends Table
         parent::initialize($config);
 
         $this->setTable('users');
-        $this->setDisplayField('id');
-        $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+
+        $this->hasMany('Friends', [
+            'foreignKey' => 'username',
+            'saveStrategy' => 'replace',
+        ]);
+
+        /* $this->hasMany('Friends', [
+            'foreignKey' => 'friend_with',
+            'saveStrategy' => 'replace',
+        ]); */
+
+        $this->hasMany('Messages', [
+            'foreignKey' => 'user_from',
+            'saveStrategy' => 'replace',
+        ]);
     }
 
     /**
@@ -56,14 +69,8 @@ class UsersTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            ->integer('id')
-            ->allowEmptyString('id', null, 'create');
-
-        $validator
             ->scalar('username')
-            ->maxLength('username', 255)
-            ->requirePresence('username', 'create')
-            ->notEmptyString('username');
+            ->maxLength('username', 255);
 
         $validator
             ->scalar('password')

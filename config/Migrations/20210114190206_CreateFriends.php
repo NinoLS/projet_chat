@@ -15,16 +15,6 @@ class CreateFriends extends AbstractMigration
     public function change()
     {
         $table = $this->table('friends');
-        $table->addColumn('username', 'string', [
-            'default' => null,
-            'limit' => 255,
-            'null' => false,
-        ]);
-        $table->addColumn('friend_with', 'string', [
-            'default' => null,
-            'limit' => 255,
-            'null' => false,
-        ]);
         $table->addColumn('created', 'datetime', [
             'default' => null,
             'null' => false,

@@ -5,7 +5,7 @@
             <?= $this->Form->create($user) ?>
             <fieldset>
                 <?php
-                echo $this->Form->control('username');
+                echo $this->Form->control('username', ['type' => 'text']);
                 echo $this->Form->control('password');
                 ?>
             </fieldset>

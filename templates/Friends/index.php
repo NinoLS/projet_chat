@@ -1,12 +1,6 @@
-<?php
-
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Friend[]|\Cake\Collection\CollectionInterface $friends
- */
-?>
+<!--MES AMIS-->
 <div class="friends index content">
-    <h3><?= __('Friends') ?></h3>
+    <h3><?= __('Amis') ?></h3>
     <?= $this->Html->link(__('Nouveau'), ['action' => 'add'], ['class' => 'button float-left']) ?>
     <div class="table-responsive">
         <table>
@@ -43,9 +37,9 @@
 </div>
 
 
-<!-- 
+<!--MES AJOUTS EN ATTENTES-->
 <div class="friends index content mt-5">
-    <h3><?= __('Demandes') ?></h3>
+    <h3><?= __('Vous les avez ajouté') ?></h3>
     <div class="table-responsive">
         <table>
             <thead>
@@ -56,12 +50,12 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($requested_friends as $requested_friend) : ?>
+                <?php foreach ($users_i_added as $request) : ?>
                     <tr>
-                        <td><?= h($requested_friend->username) ?></td>
-                        <td><?= h($requested_friend->created) ?></td>
+                        <td><?= h($request->friend_with) ?></td>
+                        <td><?= h($request->created) ?></td>
                         <td class="actions">
-                            <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $requested_friend->id], ['confirm' => __('Are you sure you want to delete # {0}?', $requested_friend->id)]) ?>
+                            <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $request->id], ['confirm' => __('Are you sure you want to delete # {0}?', $request->id)]) ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -78,12 +72,41 @@
         </ul>
         <p><?= $this->Paginator->counter(__('Page {{page}} de {{pages}}, total: {{count}}')) ?></p>
     </div>
-</div> 
- 
-<?php
+</div>
 
-echo "friends<br/>";
-print_r($friends);
-echo "<br/><br/>R_friends<br/>";
-print_r($requested_friends);
-?> -->
+<!--MES DEMANDES-->
+<div class="friends index content mt-5">
+    <h3><?= __('Ils vous ont ajouté') ?></h3>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th><?= $this->Paginator->sort('Nom') ?></th>
+                    <th><?= $this->Paginator->sort('Date') ?></th>
+                    <th class="actions"><?= __('Actions') ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($users_added_me as $request) : ?>
+                    <tr>
+                        <td><?= h($request->username) ?></td>
+                        <td><?= h($request->created) ?></td>
+                        <td class="actions">
+                            <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $request->id], ['confirm' => __('Are you sure you want to delete # {0}?', $request->id)]) ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <div class="paginator mt-5">
+        <ul class="pagination">
+            <?= $this->Paginator->first('<< ' . __('première')) ?>
+            <?= $this->Paginator->prev('< ' . __('précédent')) ?>
+            <?= $this->Paginator->numbers() ?>
+            <?= $this->Paginator->next(__('suivant') . ' >') ?>
+            <?= $this->Paginator->last(__('dernière') . ' >>') ?>
+        </ul>
+        <p><?= $this->Paginator->counter(__('Page {{page}} de {{pages}}, total: {{count}}')) ?></p>
+    </div>
+</div>
