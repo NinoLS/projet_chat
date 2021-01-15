@@ -17,7 +17,7 @@
                         <td><?= h($friend->friend_with) ?></td>
                         <td><?= h($friend->created) ?></td>
                         <td class="actions">
-                            <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $friend->id], ['confirm' => __('Are you sure you want to delete # {0}?', $friend->id)]) ?>
+                            <?= $this->Form->postLink(__('Supprimer'), ['action' => 'delete', $friend->id], ['confirm' => __('Are you sure you want to delete {0}?', $friend->friend_with)]) ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -55,7 +55,7 @@
                         <td><?= h($request->friend_with) ?></td>
                         <td><?= h($request->created) ?></td>
                         <td class="actions">
-                            <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $request->id], ['confirm' => __('Are you sure you want to delete # {0}?', $request->id)]) ?>
+                            <?= $this->Form->postLink(__('Annuler'), ['action' => 'delete', $request->id], ['confirm' => __('Are you sure you want to delete # {0}?', $request->id)]) ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -92,7 +92,8 @@
                         <td><?= h($request->username) ?></td>
                         <td><?= h($request->created) ?></td>
                         <td class="actions">
-                            <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $request->id], ['confirm' => __('Are you sure you want to delete # {0}?', $request->id)]) ?>
+                            <?= $this->Form->postLink(__('Accepter'), ['action' => 'add'], ['data' => ['friend_with' => $request->username]]) ?>
+                            <?= $this->Form->postLink(__('Refuser'), ['action' => 'delete', $request->id], ['confirm' => __('Are you sure you want to delete # {0}?', $request->id)]) ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>
