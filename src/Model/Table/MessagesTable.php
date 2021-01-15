@@ -50,6 +50,16 @@ class MessagesTable extends Table
             'foreignKey' => 'user_from',
             'joinType' => 'INNER',
         ]);
+
+
+        /* $this->belongsTo('Friends', [
+            'foreignKey' => 'user_from',
+            'joinType' => 'INNER',
+        ]); */
+        /* $this->belongsTo('Friends', [
+            'foreignKey' => 'user_to',
+            'joinType' => 'INNER',
+        ]); */
     }
 
     /**
@@ -83,5 +93,13 @@ class MessagesTable extends Table
             ->notEmptyString('message');
 
         return $validator;
+    }
+
+    public function buildRules(RulesChecker $rules): RulesChecker
+    {
+        $rules->add($rules->existsIn('user_to', 'Users'), ['errorField' => 'user_to', 'message' => 'Utilisateur inexistant!']);
+        //ou vérification côté Controller
+        //=> association messages x friends
+        return $rules;
     }
 }

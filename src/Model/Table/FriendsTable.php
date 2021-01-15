@@ -30,6 +30,16 @@ class FriendsTable extends Table
             'foreignKey' => 'friend_with',
             'joinType' => 'INNER',
         ]); */
+
+        //SEULEMENT AVEC CLES PRIMAIRES ..?
+        /* $this->hasMany('Friends', [
+            'foreignKey' => 'user_from',
+            'saveStrategy' => 'replace',
+        ]);
+        $this->hasMany('Friends', [
+            'foreignKey' => 'user_to',
+            'saveStrategy' => 'replace',
+        ]);  */
     }
 
     public function validationDefault(Validator $validator): Validator
