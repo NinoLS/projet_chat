@@ -11,33 +11,48 @@ class FriendsController extends AppController
     {
         $user = $this->request->getSession()->read('Auth')->username;
 
-        $friends = $this->Friends->find()
-            ->where(['username' => "$user"]);
-        $friends = $this->paginate($friends);
+        //my friends + my requests
+        $friends = $this->paginate($this->Friends
+            ->find()
+            ->where(['username' => "$user"]));
 
 
-
-
-        $friends_with = array();
-        $friends_tmp = $this->paginate($this->Friends->find()
+        //users who added me
+        $friends_tmp = $this->paginate($this->Friends
+            ->find()
             ->where(['friend_with' => "$user"]));
         $friends_tmp = compact('friends_tmp');
+
+        //get their username
+        $friends_with_me = array();
         foreach ($friends_tmp as $friend) {
-            //print_r($friend->first()->friend_with);
             if (!empty($friend->first()->username))
-                array_push($friends_with, $friend->first()->username);
+                array_push($friends_with_me, $friend->first()->username);
         }
 
-
-        $friends = $this->Friends->find()
+        //my friends only
+        $friends = $this->paginate($this->Friends->find()
             ->where([
                 'username' => "$user",
-                'friend_with IN' => $friends_with
-            ]);
-        $friends = $this->paginate($friends);
+                'friend_with IN' => $friends_with_me
+            ]));
+
+        //users who added me only
+        $i_added_them = $this->paginate($this->Friends->find()
+            ->where([
+                'username' => "$user",
+                'friend_with NOT IN' => $friends_with_me
+            ]));
+
+        //my request
+        $they_added_me = $this->paginate($this->Friends->find()
+            ->where([
+                'username NOT IN' => $friends_with_me,
+                'friend_with' => "$user"
+            ]));
 
 
-        $this->set(compact('friends'));
+        $this->set(compact('friends', 'i_added_them', 'they_added_me'));
     }
 
     public function add()
@@ -77,7 +92,7 @@ class FriendsController extends AppController
         $conversations = $this->Friends->find()
             ->where(['username' => "$user"]);
 
-        $conversations = $this->paginate($conversations);
+        $$conversations = $this->paginate($conversations);
         $this->set(compact('conversations'));
     }
 }
