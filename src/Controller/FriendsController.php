@@ -10,10 +10,32 @@ class FriendsController extends AppController
     public function index()
     {
         $user = $this->request->getSession()->read('Auth')->username;
-        $friends = $this->paginate(
-            $this->Friends->find()
-                ->where(['username' => "$user"])
-        );
+
+        $friends = $this->Friends->find()
+            ->where(['username' => "$user"]);
+        $friends = $this->paginate($friends);
+
+
+
+
+        $friends_with = array();
+        $friends_tmp = $this->paginate($this->Friends->find()
+            ->where(['friend_with' => "$user"]));
+        $friends_tmp = compact('friends_tmp');
+        foreach ($friends_tmp as $friend) {
+            //print_r($friend->first()->friend_with);
+            if (!empty($friend->first()->username))
+                array_push($friends_with, $friend->first()->username);
+        }
+
+
+        $friends = $this->Friends->find()
+            ->where([
+                'username' => "$user",
+                'friend_with IN' => $friends_with
+            ]);
+        $friends = $this->paginate($friends);
+
 
         $this->set(compact('friends'));
     }
