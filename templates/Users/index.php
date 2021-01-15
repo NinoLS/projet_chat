@@ -27,9 +27,9 @@
                         <td><?= h($user->created) ?></td>
                         <td><?= h($user->modified) ?></td>
                         <td class="actions">
-                            <?= $this->Html->link(__('View'), ['action' => 'view', $user->id]) ?>
-                            <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) ?>
-                            <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]) ?>
+                            <?= $this->Html->link(__('View'), ['action' => 'view', $user->username]) ?>
+                            <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->username]) ?>
+                            <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->username], ['confirm' => __('Are you sure you want to delete # {0}?', $user->username)]) ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>
