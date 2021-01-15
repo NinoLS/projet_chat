@@ -80,6 +80,24 @@ class UsersController extends AppController
                 $this->Users->Friends->delete($record);
             }
 
+            //in MESSAGES table
+            $in_messages = $this->paginate($this->Users->Messages->find()
+                ->where([
+                    'OR' =>
+                    [
+                        [
+                            'user_from' => $user->username,
+                        ],
+                        [
+                            'user_to' => $user->username,
+                        ]
+                    ]
+                ]));
+
+            foreach ($in_messages as $record) {
+                $this->Users->Messages->delete($record);
+            }
+
 
             //in MESSAGES table
         } else {
