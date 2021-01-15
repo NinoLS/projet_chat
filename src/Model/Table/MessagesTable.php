@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Model\Table;
@@ -44,6 +45,11 @@ class MessagesTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+
+        $this->belongsTo('Users', [
+            'foreignKey' => 'user_from',
+            'joinType' => 'INNER',
+        ]);
     }
 
     /**

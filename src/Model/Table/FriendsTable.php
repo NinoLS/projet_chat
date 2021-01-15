@@ -25,6 +25,11 @@ class FriendsTable extends Table
             'foreignKey' => 'username',
             'joinType' => 'INNER',
         ]);
+
+        /* $this->belongsTo('Users', [
+            'foreignKey' => 'friend_with',
+            'joinType' => 'INNER',
+        ]); */
     }
 
     public function validationDefault(Validator $validator): Validator
