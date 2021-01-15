@@ -36,11 +36,11 @@ class MessagesController extends AppController
             $message = $this->Messages->patchEntity($message, $this->request->getData());
             $message['user_from'] = $user;
             if ($this->Messages->save($message)) {
-                $this->Flash->success(__('The message has been saved.'));
+                $this->Flash->success(__('Message envoyé à {0}.', ucfirst($message['user_to'])));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The message could not be saved. Please, try again.'));
+            $this->Flash->error(__("Message non envoyé: rééssayez ou contactez l'administrateur."));
         }
         $this->set(compact('message'));
     }
@@ -67,9 +67,9 @@ class MessagesController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $message = $this->Messages->get($id);
         if ($this->Messages->delete($message)) {
-            $this->Flash->success(__('The message has been deleted.'));
+            $this->Flash->success(__('Message de {0} supprimé.', ucfirst($message->user_from)));
         } else {
-            $this->Flash->error(__('The message could not be deleted. Please, try again.'));
+            $this->Flash->error(__("Message non supprimé: rééssayez ou contactez l'administrateur."));
         }
 
         return $this->redirect(['action' => 'index']);

@@ -17,7 +17,7 @@
                         <td><?= h($friend->friend_with) ?></td>
                         <td><?= h($friend->created) ?></td>
                         <td class="actions">
-                            <?= $this->Form->postLink(__('Supprimer'), ['action' => 'delete', $friend->id], ['confirm' => __('Are you sure you want to delete {0}?', $friend->friend_with)]) ?>
+                            <?= $this->Form->postLink(__('Supprimer'), ['action' => 'delete', $friend->id], ['confirm' => __('Supprimer {0} de vos amis?', $friend->friend_with)]) ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -55,7 +55,7 @@
                         <td><?= h($request->friend_with) ?></td>
                         <td><?= h($request->created) ?></td>
                         <td class="actions">
-                            <?= $this->Form->postLink(__('Annuler'), ['action' => 'delete', $request->id], ['confirm' => __('Are you sure you want to delete # {0}?', $request->id)]) ?>
+                            <?= $this->Form->postLink(__('Annuler'), ['action' => 'delete', $request->id], ['confirm' => __("Annuler votre demande d'ami pour {0}?", $request->friend_with)]) ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -93,7 +93,7 @@
                         <td><?= h($request->created) ?></td>
                         <td class="actions">
                             <?= $this->Form->postLink(__('Accepter'), ['action' => 'add'], ['data' => ['friend_with' => $request->username]]) ?>
-                            <?= $this->Form->postLink(__('Refuser'), ['action' => 'delete', $request->id], ['confirm' => __('Are you sure you want to delete # {0}?', $request->id)]) ?>
+                            <?= $this->Form->postLink(__('Refuser'), ['action' => 'delete', $request->id], ['confirm' => __("Refuser la demande d'ami de {0}?", $request->username)]) ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>

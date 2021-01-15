@@ -84,11 +84,11 @@ class FriendsController extends AppController
             unset($friend['username']);
             $friend['username'] = $this->request->getSession()->read('Auth')->username;
             if ($this->Friends->save($friend)) {
-                $this->Flash->success(__('The friend has been saved.'));
+                $this->Flash->success(__("{0} ajouté.", ucfirst($friend->friend_with)));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The friend could not be saved. Please, try again.'));
+            $this->Flash->error(__("Impossible d'envoyé la demande d'ami à `{0}`.", ucfirst($friend->friend_with)));
         }
         $this->set(compact('friend'));
     }
@@ -98,9 +98,9 @@ class FriendsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $friend = $this->Friends->get($id);
         if ($this->Friends->delete($friend)) {
-            $this->Flash->success(__('The friend has been deleted.'));
+            $this->Flash->success(__('{0} a été supprimé.', ucfirst($friend->friend_with)));
         } else {
-            $this->Flash->error(__('The friend could not be deleted. Please, try again.'));
+            $this->Flash->error(__("{0} n'a pu être supprimé: réessayez ou contactez l'administrateur.", ucfirst($friend->friend_with)));
         }
 
         return $this->redirect(['action' => 'index']);
