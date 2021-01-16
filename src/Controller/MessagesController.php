@@ -28,21 +28,44 @@ class MessagesController extends AppController
         $this->set(compact('message'));
     }
 
-    public function add()
+    public function add($friend_with)
     {
         $user = $this->request->getSession()->read('Auth')->username;
-        $message = $this->Messages->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $message = $this->Messages->patchEntity($message, $this->request->getData());
-            $message['user_from'] = $user;
-            if ($this->Messages->save($message)) {
-                $this->Flash->success(__('Message envoyé à {0}.', ucfirst($message['user_to'])));
 
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__("Message non envoyé: rééssayez ou contactez l'administrateur."));
+        $message = $this->Messages->newEmptyEntity();
+        //if ($this->request->is('post')) {
+        $message = $this->Messages->patchEntity($message, $this->request->getData());
+        $message['user_from'] = $user;
+        $message['user_to']   = $friend_with;
+        if ($this->Messages->save($message)) {
+            $this->Flash->success(__('Message envoyé à {0}.', ucfirst($message['user_to'])));
+
+            return $this->redirect(['action' => "add/$message->user_to"]);
         }
-        $this->set(compact('message'));
+        $this->Flash->error(__("Message non envoyé: rééssayez ou contactez l'administrateur."));
+        //}
+
+        $all_messages = $this->Messages->find()
+            ->where(
+                [
+                    'OR' =>
+                    [
+                        [
+                            'user_from' => "$user",
+                            'user_to'   => "$friend_with"
+                        ],
+                        [
+                            'user_from' => "$friend_with",
+                            'user_to'   => "$user"
+                        ]
+
+                    ]
+                ]
+            )
+            ->order(['created' => 'ASC']);
+        $all_messages = $this->paginate($all_messages);
+
+        $this->set(compact('all_messages', 'friend_with', 'message'));
     }
 
     public function edit($id = null)
@@ -73,33 +96,5 @@ class MessagesController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
-    }
-
-    public function conv($friend_with)
-    {
-        $user = $this->request->getSession()->read('Auth')->username;
-        $messages = $this->Messages->find()
-            ->where(
-                [
-                    'OR' =>
-                    [
-                        [
-                            'user_from' => "$user",
-                            'user_to'   => "$friend_with"
-                        ],
-                        [
-                            'user_from' => "$friend_with",
-                            'user_to'   => "$user"
-                        ]
-
-                    ]
-                ]
-            )
-            ->order(['created' => 'ASC']);
-        $messages = $this->paginate($messages);
-
-
-
-        $this->set(compact('messages', 'friend_with'));
     }
 }
