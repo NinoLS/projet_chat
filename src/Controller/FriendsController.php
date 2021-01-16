@@ -108,6 +108,9 @@ class FriendsController extends AppController
 
     public function conversations()
     {
+        $this->paginate = [
+            'limit' => 20,
+        ];
         $user = $this->request->getSession()->read('Auth')->username;
 
         //users who added me

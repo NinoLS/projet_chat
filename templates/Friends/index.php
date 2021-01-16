@@ -24,16 +24,6 @@
             </tbody>
         </table>
     </div>
-    <div class="paginator mt-5">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('première')) ?>
-            <?= $this->Paginator->prev('< ' . __('précédent')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('suivant') . ' >') ?>
-            <?= $this->Paginator->last(__('dernière') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} de {{pages}}, total: {{count}}')) ?></p>
-    </div>
 </div>
 
 
@@ -62,16 +52,6 @@
             </tbody>
         </table>
     </div>
-    <div class="paginator mt-5">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('première')) ?>
-            <?= $this->Paginator->prev('< ' . __('précédent')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('suivant') . ' >') ?>
-            <?= $this->Paginator->last(__('dernière') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} de {{pages}}, total: {{count}}')) ?></p>
-    </div>
 </div>
 
 <!--MES DEMANDES-->
@@ -99,15 +79,5 @@
                 <?php endforeach; ?>
             </tbody>
         </table>
-    </div>
-    <div class="paginator mt-5">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('première')) ?>
-            <?= $this->Paginator->prev('< ' . __('précédent')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('suivant') . ' >') ?>
-            <?= $this->Paginator->last(__('dernière') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} de {{pages}}, total: {{count}}')) ?></p>
     </div>
 </div>

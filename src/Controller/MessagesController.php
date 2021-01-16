@@ -10,6 +10,9 @@ class MessagesController extends AppController
 {
     public function index()
     {
+        $this->paginate = [
+            'limit' => 10,
+        ];
         $user = $this->request->getSession()->read('Auth')->username;
         $messages = $this->paginate(
             $this->Messages->find()

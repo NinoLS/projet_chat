@@ -10,7 +10,7 @@
             <tbody>
                 <?php foreach ($conversations as $conv) : ?>
                     <tr>
-                        <td><a href="/chat/messages/conv/<?= h($conv->friend_with) ?>"><?= h($conv->friend_with) ?></a></td>
+                        <td><a href="/chat/messages/add/<?= h($conv->friend_with) ?>"><?= h($conv->friend_with) ?></a></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
