@@ -52,10 +52,11 @@ class MessagesTable extends Table
         ]);
 
 
-        /* $this->belongsTo('Friends', [
+        $this->belongsTo('Friends', [
             'foreignKey' => 'user_from',
             'joinType' => 'INNER',
-        ]); */
+        ]);
+
         /* $this->belongsTo('Friends', [
             'foreignKey' => 'user_to',
             'joinType' => 'INNER',

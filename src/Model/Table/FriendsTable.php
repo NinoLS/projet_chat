@@ -32,10 +32,11 @@ class FriendsTable extends Table
         ]); */
 
         //SEULEMENT AVEC CLES PRIMAIRES ..?
-        /* $this->hasMany('Friends', [
+        $this->hasMany('Messages', [
             'foreignKey' => 'user_from',
             'saveStrategy' => 'replace',
         ]);
+        /* 
         $this->hasMany('Friends', [
             'foreignKey' => 'user_to',
             'saveStrategy' => 'replace',
