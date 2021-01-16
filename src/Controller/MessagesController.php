@@ -87,23 +87,6 @@ class MessagesController extends AppController
         $this->set(compact('all_messages', 'friend_with', 'message'));
     }
 
-    public function edit($id = null)
-    {
-        $message = $this->Messages->get($id, [
-            'contain' => [],
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $message = $this->Messages->patchEntity($message, $this->request->getData());
-            if ($this->Messages->save($message)) {
-                $this->Flash->success(__('The message has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The message could not be saved. Please, try again.'));
-        }
-        $this->set(compact('message'));
-    }
-
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
