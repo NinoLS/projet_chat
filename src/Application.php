@@ -41,7 +41,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
             );
         }
         if (Configure::read('debug')) {
-            $this->addPlugin('DebugKit');
+            //$this->addPlugin('DebugKit');
         }
     }
 
