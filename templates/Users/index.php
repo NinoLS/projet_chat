@@ -7,7 +7,7 @@
 ?>
 <div class="users index content">
     <h3><?= __('Users') ?></h3>
-    <?= $this->Html->link(__('Nouveau'), ['action' => 'add'], ['class' => 'button float-left']) ?>
+    <?= $this->Html->link(__('Nouveau'), ['action' => 'add'], ['class' => 'button bg-success border-0 float-left']) ?>
     <div class="table-responsive">
         <table>
             <thead>

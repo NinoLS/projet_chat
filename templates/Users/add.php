@@ -1,6 +1,6 @@
 <aside class="column">
     <div class="side-nav">
-        <a class="button text-white" href="/chat/users">Retour</a>
+        <a class="button bg-secondary border-0 text-white" href="/chat/users">Retour</a>
     </div>
 </aside>
 <div class="row">
@@ -14,7 +14,7 @@
                 echo $this->Form->control('password');
                 ?>
             </fieldset>
-            <?= $this->Form->button(__('Envoyer')) ?>
+            <?= $this->Form->button(__('Créer'), ['class' => "bg-success border-0"]) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>

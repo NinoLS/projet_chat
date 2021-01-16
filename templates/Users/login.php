@@ -3,11 +3,11 @@
     <h3>Connexion</h3>
     <?= $this->Form->create() ?>
     <fieldset>
-        <legend><?= __("Veuillez s'il vous plaît entrer votre nom d'utilisateur et votre mot de passe") ?></legend>
+        <!-- <legend><?= __("Veuillez s'il vous plaît entrer votre nom d'utilisateur et votre mot de passe") ?></legend> -->
         <?= $this->Form->control('username', ['required' => true]) ?>
         <?= $this->Form->control('password', ['required' => true]) ?>
     </fieldset>
-    <?= $this->Form->submit(__('Login')); ?>
+    <?= $this->Form->submit(__('Login'), ['class' => 'bg-success border-0']); ?>
     <?= $this->Form->end() ?>
 
     <?= $this->Html->link("Ajouter un utilisateur", ['action' => 'add']) ?>

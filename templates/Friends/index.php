@@ -1,12 +1,12 @@
 <nav class="nav justify-content-center mb-5">
-    <a href="/chat/friends" class="button text-white col-3 mx-2">Amis</a>
-    <a href="/chat/messages" class="button text-white col-3 mx-2">Messages récents</a>
-    <a href="/chat/users/logout" class="button text-white col-3 mx-2">Déconnexion</a>
+    <a href="/chat/friends" class="button bg-success border-0 text-white col-3 mx-2">Amis</a>
+    <a href="/chat/messages" class="button bg-secondary border-0 text-white col-3 mx-2">Messages récents</a>
+    <a href="/chat/users/logout" class="button bg-secondary border-0 text-white col-3 mx-2">Déconnexion</a>
 </nav>
 <!--MES AMIS-->
 <div class="friends index content">
     <h3><?= __('Amis') ?></h3>
-    <?= $this->Html->link(__('Nouveau'), ['action' => 'add'], ['class' => 'button float-left']) ?>
+    <?= $this->Html->link(__('Nouveau'), ['action' => 'add'], ['class' => 'button bg-success border-0 float-left']) ?>
     <div class="table-responsive">
         <table>
             <thead>

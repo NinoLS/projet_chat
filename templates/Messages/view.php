@@ -1,8 +1,8 @@
 <div class="row">
     <aside class="column">
         <div class="side-nav">
-            <a class="button text-white" href="/chat/messages">Retour</a>
-            <?= $this->Form->postLink(__('Supprimer'), ['action' => 'delete', $message->id], ['confirm' => __('Are you sure you want to delete # {0}?', $message->id), 'class' => 'button text-white']) ?>
+            <a class="button bg-secondary border-0 text-white" href="/chat/messages">Retour</a>
+            <?= $this->Form->postLink(__('Supprimer'), ['action' => 'delete', $message->id], ['confirm' => __('Are you sure you want to delete # {0}?', $message->id), 'class' => 'button bg-dark border-0 text-white']) ?>
         </div>
     </aside>
     <div class="column-responsive column-80">

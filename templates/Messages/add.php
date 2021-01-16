@@ -1,5 +1,5 @@
 <div class="side-nav">
-    <a class="button text-white" href="/chat/messages">Retour</a>
+    <a class="button bg-secondary border-0 text-white" href="/chat/messages">Retour</a>
 </div>
 <div class="messages index content col-9 mx-auto">
     <h3><?= __("Conversation avec 
@@ -42,7 +42,7 @@
             echo $this->Form->control('message');
             ?>
         </fieldset>
-        <?= $this->Form->button(__('Envoyer')) ?>
+        <?= $this->Form->button(__('Envoyer'), ['class' => 'bg-success border-0']) ?>
         <?= $this->Form->end() ?>
     </div>
     <div class="paginator mt-5">

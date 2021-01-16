@@ -8,7 +8,7 @@
 <div class="row">
     <aside class="column">
         <div class="side-nav">
-            <a class="button text-white" href="/chat/users">Retour</a>
+            <a class="button bg-secondary border-0 text-white" href="/chat/users">Retour</a>
         </div>
     </aside>
     <div class="column-responsive column-80">
@@ -21,7 +21,7 @@
                 echo $this->Form->control('password');
                 ?>
             </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
+            <?= $this->Form->button(__('Submit'), ['class' => 'bg-success border-0 ']) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>

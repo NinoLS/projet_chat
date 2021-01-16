@@ -1,5 +1,5 @@
 <div class="side-nav">
-    <a class="button text-white" href="/chat/friends">Retour</a>
+    <a class="button bg-secondary border-0 text-white" href="/chat/friends">Retour</a>
 </div>
 <div class="row">
     <div class="column-responsive column-80">
@@ -12,7 +12,7 @@
                 echo $this->Form->control('friend_with');
                 ?>
             </fieldset>
-            <?= $this->Form->button(__('Envoyer')) ?>
+            <button type="submit" class="button bg-success border-0 text-white">Envoyer</button>
             <?= $this->Form->end() ?>
         </div>
     </div>
