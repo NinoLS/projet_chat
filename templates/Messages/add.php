@@ -2,22 +2,26 @@
     <h3><?= __("Conversation avec 
                     <span class='text-success'>$friend_with</span>")
         ?></h3>
+    <?= $this->Form->create($message) ?>
     <div class="table-responsive">
-        <table>
+        <table class="table" width="100%">
             <tbody>
                 <?php
                 $i = 0;
                 foreach ($all_messages as $message) { ?>
-                    <tr>
-                        <td class="col-5">
-                            <?php
-                            if ($all_messages->skip($i)->first()->user_from == $friend_with) {
-                                echo "<span class='text-dark'>";
-                            } else echo "<span class='text-success float-right mr-5'>";
-                            ?>
-                            <?= $all_messages->skip($i)->first()->message ?></span>
-                        </td>
-                        <td class="col-3">
+                    <tr scope="row">
+                        <?php
+                        if ($all_messages->skip($i)->first()->user_from == $friend_with) {
+                            echo "<td width='40%'><span class='text-success ml-5 mr-5 px-5 py-1 table-success'>";
+                            echo $all_messages->skip($i)->first()->message;
+                            echo "</span></td><td width='40%'></td>";
+                        } else {
+                            echo "<td width='40%'></td><td width='40%'><span class='text-dark float-right mr-5 px-5 py-1 table-secondary'>";
+                            echo $all_messages->skip($i)->first()->message;
+                            echo "</span></td>";
+                        }
+                        ?>
+                        <td class="">
                             <span class='text-dark'> <?= $all_messages->skip($i)->first()->created ?></span>
                         </td>
                     </tr>
@@ -26,21 +30,17 @@
                 } ?>
             </tbody>
         </table>
-        <div class="column-responsive column-80">
-            <div class="messages form content">
-                <?= $this->Form->create($message) ?>
-                <fieldset>
-                    <?php
-                    //echo $this->Form->control('user_from');
-                    //echo $this->Form->control('user_to');
-                    echo $this->Form->control('message');
-                    ?>
-                </fieldset>
-                <?= $this->Form->button(__('Submit')) ?>
-                <?= $this->Form->end() ?>
-            </div>
-        </div>
-
+    </div>
+    <div class="messages form content">
+        <fieldset>
+            <?php
+            //echo $this->Form->control('user_from');
+            //echo $this->Form->control('user_to');
+            echo $this->Form->control('message');
+            ?>
+        </fieldset>
+        <?= $this->Form->button(__('Envoyer')) ?>
+        <?= $this->Form->end() ?>
     </div>
     <div class="paginator mt-5">
         <ul class="pagination">

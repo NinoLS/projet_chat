@@ -33,17 +33,17 @@ class MessagesController extends AppController
         $user = $this->request->getSession()->read('Auth')->username;
 
         $message = $this->Messages->newEmptyEntity();
-        //if ($this->request->is('post')) {
-        $message = $this->Messages->patchEntity($message, $this->request->getData());
-        $message['user_from'] = $user;
-        $message['user_to']   = $friend_with;
-        if ($this->Messages->save($message)) {
-            $this->Flash->success(__('Message envoyé à {0}.', ucfirst($message['user_to'])));
+        if ($this->request->is('post')) {
+            $message = $this->Messages->patchEntity($message, $this->request->getData());
+            $message['user_from'] = $user;
+            $message['user_to']   = $friend_with;
+            if ($this->Messages->save($message)) {
+                $this->Flash->success(__('Message envoyé à {0}.', ucfirst($message['user_to'])));
 
-            return $this->redirect(['action' => "add/$message->user_to"]);
+                return $this->redirect(['action' => "add/$message->user_to"]);
+            }
+            $this->Flash->error(__("Message non envoyé: rééssayez ou contactez l'administrateur."));
         }
-        $this->Flash->error(__("Message non envoyé: rééssayez ou contactez l'administrateur."));
-        //}
 
         $all_messages = $this->Messages->find()
             ->where(
