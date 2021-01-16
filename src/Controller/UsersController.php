@@ -146,8 +146,8 @@ class UsersController extends AppController
         if ($result->isValid()) {
             // rediriger vers /articles après la connexion réussie
             $redirect = $this->request->getQuery('redirect', [
-                'controller' => 'messages', //MOI
-                'action' => 'index',
+                'controller' => 'friends', //MOI
+                'action' => 'conversations',
             ]);
 
             return $this->redirect($redirect);
