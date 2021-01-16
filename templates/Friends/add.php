@@ -1,3 +1,6 @@
+<div class="side-nav">
+    <a class="button text-white" href="/chat/friends">Retour</a>
+</div>
 <div class="row">
     <div class="column-responsive column-80">
         <div class="friends form content">

@@ -1,10 +1,3 @@
-<?php
-
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Message $message
- */
-?>
 <div class="row">
     <aside class="column">
         <div class="side-nav">

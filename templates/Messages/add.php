@@ -1,3 +1,6 @@
+<div class="side-nav">
+    <a class="button text-white" href="/chat/messages">Retour</a>
+</div>
 <div class="messages index content col-8 mx-auto">
     <h3><?= __("Conversation avec 
                     <span class='text-success'>$friend_with</span>")

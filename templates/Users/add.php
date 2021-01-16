@@ -1,3 +1,8 @@
+<aside class="column">
+    <div class="side-nav">
+        <a class="button text-white" href="/chat/users">Retour</a>
+    </div>
+</aside>
 <div class="row">
     <div class="column-responsive column-80">
         <div class="users form content">
