@@ -13,7 +13,20 @@ class MessagesController extends AppController
         $user = $this->request->getSession()->read('Auth')->username;
         $messages = $this->paginate(
             $this->Messages->find()
-                ->where(['user_to' => "$user"] /*,'user_from' => "$user_from")*/)
+                ->where(
+                    [
+                        'OR' =>
+                        [
+                            [
+                                'user_to' => "$user"
+                            ],
+                            [
+                                'user_from' => "$user"
+                            ]
+                        ]
+                    ]
+                )
+                ->order(['created' => 'DESC'])
         );
 
         $this->set(compact('messages'));
@@ -30,6 +43,9 @@ class MessagesController extends AppController
 
     public function add($friend_with)
     {
+        $this->paginate = [
+            'limit' => 10,
+        ];
         $user = $this->request->getSession()->read('Auth')->username;
 
         $message = $this->Messages->newEmptyEntity();

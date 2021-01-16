@@ -6,13 +6,14 @@
  */
 ?>
 <div class="messages index content">
-    <h3><?= __('Messages') ?></h3>
+    <h3><?= __('Messages récents') ?></h3>
     <?= $this->Html->link(__('Nouveau'), ['action' => 'add'], ['class' => 'button float-left']) ?>
     <div class="table-responsive">
         <table>
             <thead>
                 <tr>
                     <th><?= $this->Paginator->sort('De') ?></th>
+                    <th><?= $this->Paginator->sort('À') ?></th>
                     <th><?= $this->Paginator->sort('message') ?></th>
                     <th><?= $this->Paginator->sort('Date') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
@@ -22,6 +23,7 @@
                 <?php foreach ($messages as $message) : ?>
                     <tr>
                         <td><?= h($message->user_from) ?></td>
+                        <td><?= h($message->user_to) ?></td>
                         <td><?= h($message->message) ?></td>
                         <td><?= h($message->created) ?></td>
                         <td class="actions">
