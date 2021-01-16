@@ -8,106 +8,121 @@ class UsersController extends AppController
 {
     public function index()
     {
-        $this->paginate = [
-            'limit' => 20,
-        ];
-        $users = $this->paginate($this->Users);
+        $user = $this->request->getSession()->read('Auth')->username;
+        if ($user == 'admin') {
+            $this->paginate = [
+                'limit' => 20,
+            ];
+            $users = $this->paginate($this->Users);
 
-        $this->set(compact('users'));
+            $this->set(compact('users'));
+        } else $this->redirect('/chat');
     }
 
     public function view($id = null)
     {
-        $user = $this->Users->get($id, [
-            'contain' => [],
-        ]);
+        $user = $this->request->getSession()->read('Auth')->username;
+        if ($user == 'admin') {
+            $user = $this->Users->get($id, [
+                'contain' => [],
+            ]);
 
-        $this->set(compact('user'));
+            $this->set(compact('user'));
+        } else $this->redirect('/chat');
     }
 
     public function add()
     {
-        $user = $this->Users->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('Utilisateur {0} créé.', ucfirst($user->username)));
+        $user = $this->request->getSession()->read('Auth')->username;
+        if ($user == 'admin') {
+            $user = $this->Users->newEmptyEntity();
+            if ($this->request->is('post')) {
+                $user = $this->Users->patchEntity($user, $this->request->getData());
+                if ($this->Users->save($user)) {
+                    $this->Flash->success(__('Utilisateur {0} créé.', ucfirst($user->username)));
 
-                return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['action' => 'index']);
+                }
+                $this->Flash->error(__('Utilisateur {0} non créé.', ucfirst($user->username)));
             }
-            $this->Flash->error(__('Utilisateur {0} non créé.', ucfirst($user->username)));
-        }
-        $this->set(compact('user'));
+            $this->set(compact('user'));
+        } else $this->redirect('/chat');
     }
 
     public function edit($id = null)
     {
-        $user = $this->Users->get($id, [
-            'contain' => [],
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('Utilisateur {0} édité.', ucfirst($user->username)));
+        $user = $this->request->getSession()->read('Auth')->username;
+        if ($user == 'admin') {
+            $user = $this->Users->get($id, [
+                'contain' => [],
+            ]);
+            if ($this->request->is(['patch', 'post', 'put'])) {
+                $user = $this->Users->patchEntity($user, $this->request->getData());
+                if ($this->Users->save($user)) {
+                    $this->Flash->success(__('Utilisateur {0} édité.', ucfirst($user->username)));
 
-                return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['action' => 'index']);
+                }
+                $this->Flash->error(__('Utilisateur {0} non édité.', ucfirst($user->username)));
             }
-            $this->Flash->error(__('Utilisateur {0} non édité.', ucfirst($user->username)));
-        }
-        $this->set(compact('user'));
+            $this->set(compact('user'));
+        } else $this->redirect('/chat');
     }
 
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
-        $user = $this->Users->get($id);
-        if ($this->Users->delete($user)) {
-            $this->Flash->success(__('Utilisateur {0} supprimé.', ucfirst($user->username)));
+        $user = $this->request->getSession()->read('Auth')->username;
+        if ($user == 'admin') {
+            $this->request->allowMethod(['post', 'delete']);
+            $user = $this->Users->get($id);
+            if ($this->Users->delete($user)) {
+                $this->Flash->success(__('Utilisateur {0} supprimé.', ucfirst($user->username)));
 
-            /* relative records */
-            //in FRIENDS table
-            $in_friends = $this->paginate($this->Users->Friends->find()
-                ->where([
-                    'OR' =>
-                    [
+                /* relative records */
+                //in FRIENDS table
+                $in_friends = $this->paginate($this->Users->Friends->find()
+                    ->where([
+                        'OR' =>
                         [
-                            'username' => $user->username,
-                        ],
-                        [
-                            'friend_with' => $user->username,
+                            [
+                                'username' => $user->username,
+                            ],
+                            [
+                                'friend_with' => $user->username,
+                            ]
                         ]
-                    ]
-                ]));
+                    ]));
 
-            foreach ($in_friends as $record) {
-                $this->Users->Friends->delete($record);
+                foreach ($in_friends as $record) {
+                    $this->Users->Friends->delete($record);
+                }
+
+                //in MESSAGES table
+                $in_messages = $this->paginate($this->Users->Messages->find()
+                    ->where([
+                        'OR' =>
+                        [
+                            [
+                                'user_from' => $user->username,
+                            ],
+                            [
+                                'user_to' => $user->username,
+                            ]
+                        ]
+                    ]));
+
+                foreach ($in_messages as $record) {
+                    $this->Users->Messages->delete($record);
+                }
+
+
+                //in MESSAGES table
+            } else {
+                $this->Flash->error(__('Utilisateur {0} non supprimé.', ucfirst($user->username)));
             }
 
-            //in MESSAGES table
-            $in_messages = $this->paginate($this->Users->Messages->find()
-                ->where([
-                    'OR' =>
-                    [
-                        [
-                            'user_from' => $user->username,
-                        ],
-                        [
-                            'user_to' => $user->username,
-                        ]
-                    ]
-                ]));
-
-            foreach ($in_messages as $record) {
-                $this->Users->Messages->delete($record);
-            }
-
-
-            //in MESSAGES table
-        } else {
-            $this->Flash->error(__('Utilisateur {0} non supprimé.', ucfirst($user->username)));
-        }
-
-        return $this->redirect(['action' => 'index']);
+            return $this->redirect(['action' => 'index']);
+        } else $this->redirect('/chat');
     }
 
 
