@@ -33,20 +33,17 @@ class UsersController extends AppController
 
     public function add()
     {
-        $user = $this->request->getSession()->read('Auth')->username;
-        if ($user == 'admin') {
-            $user = $this->Users->newEmptyEntity();
-            if ($this->request->is('post')) {
-                $user = $this->Users->patchEntity($user, $this->request->getData());
-                if ($this->Users->save($user)) {
-                    $this->Flash->success(__('Utilisateur {0} créé.', ucfirst($user->username)));
+        $user = $this->Users->newEmptyEntity();
+        if ($this->request->is('post')) {
+            $user = $this->Users->patchEntity($user, $this->request->getData());
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('Utilisateur {0} créé.', ucfirst($user->username)));
 
-                    return $this->redirect(['action' => 'index']);
-                }
-                $this->Flash->error(__('Utilisateur {0} non créé.', ucfirst($user->username)));
+                return $this->redirect(['action' => 'index']);
             }
-            $this->set(compact('user'));
-        } else $this->redirect('/chat');
+            $this->Flash->error(__('Utilisateur {0} non créé.', ucfirst($user->username)));
+        }
+        $this->set(compact('user'));
     }
 
     public function edit($id = null)
