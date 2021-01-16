@@ -113,9 +113,15 @@ class MessagesController extends AppController
 
                         ]
                     ]
-                )
-                ->order(['created' => 'ASC']);
-            $all_messages = $this->paginate($all_messages);
+                );
+            $nb_messages = $all_messages->count();
+            $all_messages = $all_messages
+                ->order(['created' => 'ASC'])
+                ->limit(5)
+                ->page($nb_messages % 5);
+
+            //->limit(5);
+            //$all_messages = $this->paginate($all_messages);
 
             $this->set(compact('all_messages', 'friend_with', 'message'));
         } else {
