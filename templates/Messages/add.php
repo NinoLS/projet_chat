@@ -1,7 +1,7 @@
 <div class="side-nav">
     <a class="button text-white" href="/chat/messages">Retour</a>
 </div>
-<div class="messages index content col-8 mx-auto">
+<div class="messages index content col-9 mx-auto">
     <h3><?= __("Conversation avec 
                     <span class='text-success'>$friend_with</span>")
         ?></h3>
@@ -15,11 +15,11 @@
                     <tr scope="row">
                         <?php
                         if ($all_messages->skip($i)->first()->user_from == $friend_with) {
-                            echo "<td width='40%'><span class='text-success ml-5 mr-5 px-5 py-1 table-success'>";
+                            echo "<td width='40%'><span class='text-success float-left ml-5 px-3 py-1 table-success'>";
                             echo $all_messages->skip($i)->first()->message;
                             echo "</span></td><td width='40%'></td>";
                         } else {
-                            echo "<td width='40%'></td><td width='40%'><span class='text-dark float-right mr-5 px-5 py-1 table-secondary'>";
+                            echo "<td width='40%'></td><td width='40%'><span class='text-dark float-right mr-5 px-3 py-1 table-secondary'>";
                             echo $all_messages->skip($i)->first()->message;
                             echo "</span></td>";
                         }
