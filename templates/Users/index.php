@@ -8,14 +8,14 @@
 <div class="users index content">
     <h3><?= __('Users') ?></h3>
     <?= $this->Html->link(__('Nouveau'), ['action' => 'add'], ['class' => 'button bg-success border-0 float-left']) ?>
-    <div class="table-responsive">
+    <div class="table-responsive" style="overflow: scroll; height:30em;">
         <table>
             <thead>
                 <tr>
-                    <th><?= $this->Paginator->sort('username') ?></th>
-                    <th><?= $this->Paginator->sort('password') ?></th>
-                    <th><?= $this->Paginator->sort('created') ?></th>
-                    <th><?= $this->Paginator->sort('modified') ?></th>
+                    <th><?= __('Username') ?></th>
+                    <th><?= __('Password') ?></th>
+                    <th><?= __('Created') ?></th>
+                    <th><?= __('Modified') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
@@ -35,15 +35,5 @@
                 <?php endforeach; ?>
             </tbody>
         </table>
-    </div>
-    <div class="paginator mt-5">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('première')) ?>
-            <?= $this->Paginator->prev('< ' . __('précédent')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('suivant') . ' >') ?>
-            <?= $this->Paginator->last(__('dernière') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} de {{pages}}, total: {{count}}')) ?></p>
     </div>
 </div>

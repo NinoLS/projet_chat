@@ -6,7 +6,7 @@
                     <span class='text-success'>$friend_with</span>")
         ?></h3>
     <?= $this->Form->create($message) ?>
-    <div class="table-responsive" id="div-messages" style="overflow: scroll; height:30em;">
+    <div class="table-responsive" id="scroll_div" style="overflow: scroll; height:30em;">
         <table class="table" width="100%">
             <tbody>
                 <?php
@@ -47,6 +47,6 @@
     </div>
 </div>
 <script type="text/javascript">
-    let div_messages = document.getElementById('div-messages');
-    div_messages.scrollTop = div_messages.scrollHeight;
+    let scroll_div = document.getElementById('scroll_div');
+    scroll_div.scrollTop = scroll_div.scrollHeight;
 </script>

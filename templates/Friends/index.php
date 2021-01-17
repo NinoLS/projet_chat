@@ -7,12 +7,12 @@
 <div class="friends index content">
     <h3><?= __('Amis') ?></h3>
     <?= $this->Html->link(__('Nouveau'), ['action' => 'add'], ['class' => 'button bg-success border-0 float-left']) ?>
-    <div class="table-responsive">
+    <div class="table-responsive" style="overflow: scroll; height:12em;">
         <table>
             <thead>
                 <tr>
-                    <th><?= $this->Paginator->sort('Ami') ?></th>
-                    <th><?= $this->Paginator->sort('Date') ?></th>
+                    <th><?= __('Ami') ?></th>
+                    <th><?= __('Date') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
@@ -35,12 +35,12 @@
 <!--MES AJOUTS EN ATTENTES-->
 <div class="friends index content mt-5">
     <h3><?= __('Vous les avez ajouté') ?></h3>
-    <div class="table-responsive">
+    <div class="table-responsive" style="overflow: scroll; height:12em;">
         <table>
             <thead>
                 <tr>
-                    <th><?= $this->Paginator->sort('Nom') ?></th>
-                    <th><?= $this->Paginator->sort('Date') ?></th>
+                    <th><?= __('Nom') ?></th>
+                    <th><?= __('Date') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
@@ -62,13 +62,13 @@
 <!--MES DEMANDES-->
 <div class="friends index content mt-5">
     <h3><?= __('Ils vous ont ajouté') ?></h3>
-    <div class="table-responsive">
+    <div class="table-responsive" style="overflow: scroll; height:12em;">
         <table>
             <thead>
                 <tr>
-                    <th><?= $this->Paginator->sort('Nom') ?></th>
-                    <th><?= $this->Paginator->sort('Date') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
+                    <th><?= __('Nom') ?></th>
+                    <th><?= __('Date') ?></th>
+                    <th class=" actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
             <tbody>

@@ -5,14 +5,14 @@
 </nav>
 <div class="messages index content">
     <h3><?= __('Messages récents') ?></h3>
-    <div class="table-responsive">
+    <div class="table-responsive" style="overflow: scroll; height:30em;">
         <table>
             <thead>
                 <tr>
-                    <th><?= $this->Paginator->sort('De') ?></th>
-                    <th><?= $this->Paginator->sort('À') ?></th>
-                    <th><?= $this->Paginator->sort('message') ?></th>
-                    <th><?= $this->Paginator->sort('Date') ?></th>
+                    <th><?= __('De') ?></th>
+                    <th><?= __('À') ?></th>
+                    <th><?= __('Message') ?></th>
+                    <th><?= __('Date') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
@@ -31,15 +31,5 @@
                 <?php endforeach; ?>
             </tbody>
         </table>
-    </div>
-    <div class="paginator mt-5">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('première')) ?>
-            <?= $this->Paginator->prev('< ' . __('précédent')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('suivant') . ' >') ?>
-            <?= $this->Paginator->last(__('dernière') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} de {{pages}}, total: {{count}}')) ?></p>
     </div>
 </div>
