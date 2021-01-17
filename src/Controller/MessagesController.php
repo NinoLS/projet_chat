@@ -81,6 +81,25 @@ class MessagesController extends AppController
                 $message = $this->Messages->patchEntity($message, $this->request->getData());
                 $message['user_from'] = $user;
                 $message['user_to']   = $friend_with;
+
+                //vérification long mot
+                define('MAX_SIZE_WORD', 8);
+                $len = strlen($message->message);
+                if ($len >= MAX_SIZE_WORD && !strpos($message->message, " ")) {
+                    $substr_nb = floor(($len / MAX_SIZE_WORD)) + 1;
+                    $message_tmp = array();
+                    for ($i = 0; $i < $substr_nb; $i++) {
+                        array_push($message_tmp, substr($message->message, MAX_SIZE_WORD * $i, MAX_SIZE_WORD));
+                    }
+
+                    $message->message = "";
+                    for ($i = 0; $i < $substr_nb; $i++) {
+                        $message->message .= $message_tmp[$i] . "-";
+                    }
+                    $message->message = substr($message->message, 0, strlen($message->message) - 1);
+                }
+
+
                 if ($this->Messages->save($message)) {
                     $this->Flash->success(__('Message envoyé à {0}.', ucfirst($message['user_to'])));
 
