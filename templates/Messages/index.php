@@ -24,8 +24,8 @@
                         <td><?= h($message->message) ?></td>
                         <td><?= h($message->created) ?></td>
                         <td class="actions">
-                            <?= $this->Html->link(__('Voir'), ['action' => 'view', $message->id]) ?>
-                            <?= $this->Form->postLink(__('Supprimer'), ['action' => 'delete', $message->id], ['confirm' => __('Supprimer le message de {0}?', $message->user_from)]) ?>
+                            <?= $this->Html->link(__('Voir'), ['action' => 'view', $message->id], ['class' => 'text-info']) ?>
+                            <?= $this->Form->postLink(__('Supprimer'), ['action' => 'delete', $message->id], ['confirm' => __('Supprimer le message "{0}.." ?', substr($message->message, 0, 10)), 'class' => 'text-dark']) ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>

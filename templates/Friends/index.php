@@ -22,7 +22,7 @@
                         <td><?= h($friend->friend_with) ?></td>
                         <td><?= h($friend->created) ?></td>
                         <td class="actions">
-                            <?= $this->Form->postLink(__('Supprimer'), ['action' => 'delete', $friend->id], ['confirm' => __('Supprimer {0} de vos amis?', $friend->friend_with)]) ?>
+                            <?= $this->Form->postLink(__('Supprimer'), ['action' => 'delete', $friend->id], ['confirm' => __('Supprimer {0} de vos amis?', ucfirst($friend->friend_with)), 'class' => 'text-dark']) ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -50,7 +50,7 @@
                         <td><?= h($request->friend_with) ?></td>
                         <td><?= h($request->created) ?></td>
                         <td class="actions">
-                            <?= $this->Form->postLink(__('Annuler'), ['action' => 'delete', $request->id], ['confirm' => __("Annuler votre demande d'ami pour {0}?", $request->friend_with)]) ?>
+                            <?= $this->Form->postLink(__('Annuler'), ['action' => 'delete', $request->id], ['confirm' => __("Annuler votre demande d'ami pour {0}?", ucfirst($request->friend_with)), 'class' => 'text-dark']) ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -77,8 +77,8 @@
                         <td><?= h($request->username) ?></td>
                         <td><?= h($request->created) ?></td>
                         <td class="actions">
-                            <?= $this->Form->postLink(__('Accepter'), ['action' => 'add'], ['data' => ['friend_with' => $request->username]]) ?>
-                            <?= $this->Form->postLink(__('Refuser'), ['action' => 'delete', $request->id], ['confirm' => __("Refuser la demande d'ami de {0}?", $request->username)]) ?>
+                            <?= $this->Form->postLink(__('Accepter'), ['action' => 'add'], ['data' => ['friend_with' => $request->username], 'class' => 'text-info']) ?>
+                            <?= $this->Form->postLink(__('Refuser'), ['action' => 'delete', $request->id], ['confirm' => __("Refuser la demande d'ami de {0}?", ucfirst($request->username)), 'class' => 'text-dark']) ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>
