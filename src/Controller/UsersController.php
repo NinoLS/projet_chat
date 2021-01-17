@@ -36,12 +36,18 @@ class UsersController extends AppController
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('Utilisateur {0} créé.', ucfirst($user->username)));
 
-                return $this->redirect(['action' => 'index']);
+            //vérification unicité
+            if ($this->Users->find()->where(['username' => $user->username])->count() > 0) {
+                $this->Flash->error(__('Utilisateur {0} existe déjà.', ucfirst($user->username)));
+            } else {
+                if ($this->Users->save($user)) {
+                    $this->Flash->success(__('Utilisateur {0} créé.', ucfirst($user->username)));
+
+                    return $this->redirect(['action' => 'index']);
+                }
+                $this->Flash->error(__('Utilisateur {0} non créé.', ucfirst($user->username)));
             }
-            $this->Flash->error(__('Utilisateur {0} non créé.', ucfirst($user->username)));
         }
         $this->set(compact('user'));
     }
