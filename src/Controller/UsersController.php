@@ -10,10 +10,7 @@ class UsersController extends AppController
     {
         $user = $this->request->getSession()->read('Auth')->username;
         if ($user == 'admin') {
-            $this->paginate = [
-                'limit' => 20,
-            ];
-            $users = $this->paginate($this->Users);
+            $users = $this->Users;
 
             $this->set(compact('users'));
         } else $this->redirect('/chat');
@@ -83,7 +80,7 @@ class UsersController extends AppController
 
                 /* relative records */
                 //in FRIENDS table
-                $in_friends = $this->paginate($this->Users->Friends->find()
+                $in_friends = $this->Users->Friends->find()
                     ->where([
                         'OR' =>
                         [
@@ -94,14 +91,14 @@ class UsersController extends AppController
                                 'friend_with' => $user->username,
                             ]
                         ]
-                    ]));
+                    ]);
 
                 foreach ($in_friends as $record) {
                     $this->Users->Friends->delete($record);
                 }
 
                 //in MESSAGES table
-                $in_messages = $this->paginate($this->Users->Messages->find()
+                $in_messages = $this->Users->Messages->find()
                     ->where([
                         'OR' =>
                         [
@@ -112,7 +109,7 @@ class UsersController extends AppController
                                 'user_to' => $user->username,
                             ]
                         ]
-                    ]));
+                    ]);
 
                 foreach ($in_messages as $record) {
                     $this->Users->Messages->delete($record);

@@ -10,27 +10,22 @@ class MessagesController extends AppController
 {
     public function index()
     {
-        $this->paginate = [
-            'limit' => 10,
-        ];
         $user = $this->request->getSession()->read('Auth')->username;
-        $messages = $this->paginate(
-            $this->Messages->find()
-                ->where(
+        $messages = $this->Messages->find()
+            ->where(
+                [
+                    'OR' =>
                     [
-                        'OR' =>
                         [
-                            [
-                                'user_to' => "$user"
-                            ],
-                            [
-                                'user_from' => "$user"
-                            ]
+                            'user_to' => "$user"
+                        ],
+                        [
+                            'user_from' => "$user"
                         ]
                     ]
-                )
-                ->order(['created' => 'DESC'])
-        );
+                ]
+            )
+            ->order(['created' => 'DESC']);
 
         $this->set(compact('messages'));
     }
