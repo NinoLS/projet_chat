@@ -46,21 +46,18 @@ class MessagesController extends AppController
 
     public function add($friend_with)
     {
-        $this->paginate = [
-            'limit' => 10,
-        ];
         $user = $this->request->getSession()->read('Auth')->username;
 
         //users who added me
-        $users_added_me = $this->paginate($this->Messages->Friends
+        $users_added_me = $this->Messages->Friends
             ->find()
-            ->where(['friend_with' => "$user"]));
+            ->where(['friend_with' => "$user"]);
         $users_added_me = compact('users_added_me');
 
         //users who i added
-        $users_i_added = $this->paginate($this->Messages->Friends
+        $users_i_added = $this->Messages->Friends
             ->find()
-            ->where(['username' => "$user"]));
+            ->where(['username' => "$user"]);
         $users_i_added = compact('users_i_added');
 
         //get their names
@@ -113,15 +110,8 @@ class MessagesController extends AppController
 
                         ]
                     ]
-                );
-            $nb_messages = $all_messages->count();
-            $all_messages = $all_messages
-                ->order(['created' => 'ASC'])
-                ->limit(5)
-                ->page($nb_messages % 5);
-
-            //->limit(5);
-            //$all_messages = $this->paginate($all_messages);
+                )
+                ->order(['created' => 'ASC']);
 
             $this->set(compact('all_messages', 'friend_with', 'message'));
         } else {
