@@ -88,19 +88,22 @@ class MessagesController extends AppController
                 {
                     if(strlen($word) > MAX_SIZE_WORD)
                     {
-                        //ok!
+                        //on coupe le mot par morceaux de taille MAX_SIZE_WORD
                         $word_to_words = array();
                         for($i=0 ; $i < floor(strlen($word)/MAX_SIZE_WORD)+1 ; $i++)
                             array_push($word_to_words,substr($word,MAX_SIZE_WORD * $i, MAX_SIZE_WORD));
-                        //ok!
-
+                        
+                        //on remplit le tableau avec ces morceaux
                         $word_new = "";
                         for($i=0 ; $i < floor(strlen($word)/MAX_SIZE_WORD) ; $i++)
                             $word_new .= $word_to_words[$i]."-";
                         $word_new .= $word_to_words[$i];
-                        if(strlen($word_new) % (MAX_SIZE_WORD+1) == 0)
+
+                        //si mot initiale multiple de MAX_SIZE_WORD => un "-" en trop
+                        if(strlen($word) % MAX_SIZE_WORD == 0)
                             $word_new[strlen($word_new)-1]=" ";
                     
+                        //on remplace le mot par le nouveau
                         $message->message = str_replace($word,$word_new,$message->message);
                     }
                 }
