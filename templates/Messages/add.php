@@ -39,7 +39,7 @@
             <?php
             //echo $this->Form->control('user_from');
             //echo $this->Form->control('user_to');
-            echo $this->Form->control('message');
+            echo $this->Form->control('message', ['label' => '']);
             ?>
         </fieldset>
         <?= $this->Form->button(__('Envoyer'), ['class' => 'bg-success border-0']) ?>
@@ -49,4 +49,6 @@
 <script type="text/javascript">
     let scroll_div = document.getElementById('scroll_div');
     scroll_div.scrollTop = scroll_div.scrollHeight;
+
+    let input_message = document.getElementById("message").focus();
 </script>
