@@ -42,6 +42,7 @@ class MessagesController extends AppController
     public function add($friend_with)
     {
         $user = $this->request->getSession()->read('Auth')->username;
+        $friend_with = strtolower($friend_with);
 
         //users who added me
         $users_added_me = $this->Messages->Friends
