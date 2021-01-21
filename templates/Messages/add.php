@@ -4,33 +4,25 @@
                     <span class='text-success'>$friend_with</span>")
             ?></h3>
         <?= $this->Form->create($message) ?>
-        <div class="table-responsive" id="scroll_div" style="overflow: scroll; max-height:25em;">
-            <table class="table" width="100%">
-                <tbody>
-                    <?php
-                    $i = 0;
-                    foreach ($all_messages as $message) { ?>
-                        <tr scope="row">
-                            <?php
-                            if ($all_messages->skip($i)->first()->user_from == $friend_with) {
-                                echo "<td width='40%'><span class='text-success float-left ml-5 px-3 py-1 table-success'>";
-                                echo $all_messages->skip($i)->first()->message;
-                                echo "</span></td><td width='40%'></td>";
-                            } else {
-                                echo "<td width='40%'></td><td width='40%'><span class='text-dark float-right mr-5 px-3 py-1 table-secondary'>";
-                                echo $all_messages->skip($i)->first()->message;
-                                echo "</span></td>";
-                            }
-                            ?>
-                            <td class="">
-                                <span class='text-dark'> <?= $all_messages->skip($i)->first()->created ?></span>
-                            </td>
-                        </tr>
-
-                    <?php $i++;
-                    } ?>
-                </tbody>
-            </table>
+        <div class="container" id="scroll_div" style="overflow: scroll; max-height:25em;">
+            <?php
+            $i = 0;
+            foreach ($all_messages as $message) {
+                echo '<div class="row mt-1">';
+                if ($all_messages->skip($i)->first()->user_from == $friend_with) {
+                    echo '<div class="col-5">';
+                    echo '<span class="text-success table-success px-3 py-1 float-left">' . $all_messages->skip($i)->first()->message . "</span>";
+                    echo '</div><div class="col-5"></div>';
+                } else {
+                    echo '<div class="col-5"></div><div class="col-5">';
+                    echo '<span class="text-dark table-secondary px-3 py-1 float-right">' . $all_messages->skip($i)->first()->message . "</span>";
+                    echo '</div>';
+                }
+                echo '<div class="col-2">';
+                echo '<span class="text-dark">' . $all_messages->skip($i)->first()->created . '</span>';
+                echo '</div></div>';
+                $i++;
+            } ?>
         </div>
         <div class="messages form content">
             <fieldset>
