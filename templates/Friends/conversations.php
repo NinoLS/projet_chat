@@ -5,7 +5,7 @@
 </nav>
 <div class="messages index content col-8 mx-auto">
     <h3><?= __('Conversations') ?></h3>
-    <div class="table-responsive" style="overflow: scroll; height:30em;">
+    <div class="table-responsive" style="overflow: scroll; max-height:30em;">
         <table>
             <tbody>
                 <?php foreach ($conversations as $conv) : ?>

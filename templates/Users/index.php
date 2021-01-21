@@ -8,7 +8,7 @@
 <div class="users index content">
     <h3><?= __('Users') ?></h3>
     <?= $this->Html->link(__('Nouveau'), ['action' => 'add'], ['class' => 'button bg-success border-0 float-left']) ?>
-    <div class="table-responsive" style="overflow: scroll; height:30em;">
+    <div class="table-responsive" style="overflow: scroll; max-height:30em;">
         <table>
             <thead>
                 <tr>

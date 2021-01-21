@@ -5,7 +5,7 @@
 </nav>
 <div class="messages index content">
     <h3><?= __('Messages récents') ?></h3>
-    <div class="table-responsive" style="overflow: scroll; height:30em;">
+    <div class="table-responsive" style="overflow: scroll; max-height:30em;">
         <table>
             <thead>
                 <tr>
