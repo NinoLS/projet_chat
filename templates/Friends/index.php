@@ -7,7 +7,7 @@
 <div class="friends index content">
     <h3><?= __('Amis') ?></h3>
     <?= $this->Html->link(__('Nouveau'), ['action' => 'add'], ['class' => 'button bg-success border-0 float-left']) ?>
-    <div class="table-responsive" style="overflow: scroll; height:12em;">
+    <div class="table-responsive" style="overflow: scroll; max-height:30em;">
         <table>
             <thead>
                 <tr>
@@ -35,7 +35,7 @@
 <!--MES AJOUTS EN ATTENTES-->
 <div class="friends index content mt-5">
     <h3><?= __('Vous les avez ajouté') ?></h3>
-    <div class="table-responsive" style="overflow: scroll; height:12em;">
+    <div class="table-responsive" style="overflow: scroll; max-height:12em;">
         <table>
             <thead>
                 <tr>
@@ -62,7 +62,7 @@
 <!--MES DEMANDES-->
 <div class="friends index content mt-5">
     <h3><?= __('Ils vous ont ajouté') ?></h3>
-    <div class="table-responsive" style="overflow: scroll; height:12em;">
+    <div class="table-responsive" style="overflow: scroll; max-height:12em;">
         <table>
             <thead>
                 <tr>
