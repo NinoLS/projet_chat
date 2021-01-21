@@ -1,7 +1,8 @@
 <nav class="nav justify-content-center mb-5">
-    <a href="/chat/friends" class="button bg-success border-0 text-white col-3 mx-2">Amis</a>
-    <a href="/chat/messages" class="button bg-secondary border-0 text-white col-3 mx-2">Messages récents</a>
-    <a href="/chat/users/logout" class="button bg-secondary border-0 text-white col-3 mx-2">Déconnexion</a>
+    <a href="/chat/" class="button bg-success border-0 text-white col-2 mx-2">Conversations</a>
+    <a href="/chat/friends" class="button bg-secondary border-0 text-white col-2 mx-2">Amis</a>
+    <a href="/chat/messages" class="button bg-secondary border-0 text-white col-2 mx-2">Messages récents</a>
+    <a href="/chat/users/logout" class="button bg-dark border-0 text-white col-2 mx-2">Déconnexion</a>
 </nav>
 <!--MES AMIS-->
 <div class="friends index content">
