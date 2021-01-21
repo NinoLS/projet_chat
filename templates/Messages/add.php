@@ -1,12 +1,12 @@
-<div class="side-nav">
-    <a class="button bg-secondary border-0 text-white" href="/chat/messages">Retour</a>
-</div>
+<aside>
+    <a class="button bg-secondary border-0 text-white float-left" href="/chat/messages">Retour</a>  
+</aside>
 <div class="messages index content col-9 mx-auto">
     <h3><?= __("Conversation avec 
                     <span class='text-success'>$friend_with</span>")
         ?></h3>
     <?= $this->Form->create($message) ?>
-    <div class="table-responsive" id="scroll_div" style="overflow: scroll; height:30em;">
+    <div class="table-responsive" id="scroll_div" style="overflow: scroll; max-height:25em;">
         <table class="table" width="100%">
             <tbody>
                 <?php
