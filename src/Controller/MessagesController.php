@@ -83,7 +83,29 @@ class MessagesController extends AppController
                 $message['user_to']   = $friend_with;
 
                 //vérification long mot
-                define('MAX_SIZE_WORD', 8);
+                define('MAX_SIZE_WORD', 10);
+                foreach(explode(" ",$message->message) as $word)
+                {
+                    if(strlen($word) > MAX_SIZE_WORD)
+                    {
+                        //ok!
+                        $word_to_words = array();
+                        for($i=0 ; $i < floor(strlen($word)/MAX_SIZE_WORD)+1 ; $i++)
+                            array_push($word_to_words,substr($word,MAX_SIZE_WORD * $i, MAX_SIZE_WORD));
+                        //ok!
+
+                        $word_new = "";
+                        for($i=0 ; $i < floor(strlen($word)/MAX_SIZE_WORD) ; $i++)
+                            $word_new .= $word_to_words[$i]."-";
+                        $word_new .= $word_to_words[$i];
+                        if(strlen($word_new) % (MAX_SIZE_WORD+1) == 0)
+                            $word_new[strlen($word_new)-1]=" ";
+                    
+                        $message->message = str_replace($word,$word_new,$message->message);
+                    }
+                }
+                
+                /* define('MAX_SIZE_WORD', 8);
                 $len = strlen($message->message);
                 if ($len >= MAX_SIZE_WORD && !strpos($message->message, " ")) {
                     $substr_nb = floor(($len / MAX_SIZE_WORD)) + 1;
@@ -97,7 +119,7 @@ class MessagesController extends AppController
                         $message->message .= $message_tmp[$i] . "-";
                     }
                     $message->message = substr($message->message, 0, strlen($message->message) - 1);
-                }
+                } */
 
 
                 if ($this->Messages->save($message)) {
