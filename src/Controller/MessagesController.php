@@ -83,6 +83,10 @@ class MessagesController extends AppController
                 $message['user_from'] = $user;
                 $message['user_to']   = $friend_with;
 
+                //vérification message espace " "
+                if($message->message == " ")
+                    $message->message = "-";
+
                 //vérification long mot
                 define('MAX_SIZE_WORD', 10);
                 foreach(explode(" ",$message->message) as $word)
