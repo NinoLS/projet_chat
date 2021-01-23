@@ -34,6 +34,13 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
 
+            //vérification taille
+            if(empty($user->username) || strlen($user->username) > 20 || strlen($user->username) < 8)
+            {
+                $this->Flash->error(__('Utilisateur non créé : taille inappropriée.'));
+                return $this->redirect(['action' => 'add']);
+            }
+
             //vérification unicité
             if ($this->Users->find()->where(['username' => $user->username])->count() > 0) {
                 $this->Flash->error(__('Utilisateur {0} existe déjà.', ucfirst($user->username)));
