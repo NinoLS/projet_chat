@@ -89,7 +89,7 @@ class MessagesTable extends Table
 
         $validator
             ->scalar('message')
-            ->maxLength('message', 255)
+            ->maxLength('message',253) //1 char de sécurité //255
             ->requirePresence('message', 'create')
             ->notEmptyString('message');
 

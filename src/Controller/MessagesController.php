@@ -76,6 +76,7 @@ class MessagesController extends AppController
         $names_friends = array_intersect($names_I_added, $names_added_me);
 
 
+        //Vérification existence ami (au cas où //scripts injecteurs)
         if (in_array($friend_with, $names_friends)) {
             $message = $this->Messages->newEmptyEntity();
             if ($this->request->is('post')) {
@@ -83,12 +84,19 @@ class MessagesController extends AppController
                 $message['user_from'] = $user;
                 $message['user_to']   = $friend_with;
 
+                //1ere verification taille (avant modif longs mots)
+                if(empty($message->message) || strlen($message->message) >= 254)
+                {
+                    $this->Flash->error(__("Message non envoyé : taille inappropriée."));
+                    return $this->redirect(['action' => "add/$message->user_to"]);
+                }
+
                 //vérification message espace " "
                 if($message->message == " ")
                     $message->message = "-";
 
                 //vérification long mot
-                define('MAX_SIZE_WORD', 10);
+                define('MAX_SIZE_WORD', 12);
                 foreach(explode(" ",$message->message) as $word)
                 {
                     if(strlen($word) > MAX_SIZE_WORD)
@@ -113,22 +121,12 @@ class MessagesController extends AppController
                     }
                 }
                 
-                /* define('MAX_SIZE_WORD', 8);
-                $len = strlen($message->message);
-                if ($len >= MAX_SIZE_WORD && !strpos($message->message, " ")) {
-                    $substr_nb = floor(($len / MAX_SIZE_WORD)) + 1;
-                    $message_tmp = array();
-                    for ($i = 0; $i < $substr_nb; $i++) {
-                        array_push($message_tmp, substr($message->message, MAX_SIZE_WORD * $i, MAX_SIZE_WORD));
-                    }
-
-                    $message->message = "";
-                    for ($i = 0; $i < $substr_nb; $i++) {
-                        $message->message .= $message_tmp[$i] . "-";
-                    }
-                    $message->message = substr($message->message, 0, strlen($message->message) - 1);
-                } */
-
+                //2e verification taille (apres modif longs mots)
+                if(strlen($message->message) >= 254)
+                {
+                    $this->Flash->error(__("Message non envoyé : taille inappropriée."));
+                    return $this->redirect(['action' => "add/$message->user_to"]);
+                }
 
                 if ($this->Messages->save($message)) {
                     $this->Flash->success(__('Message envoyé à {0}.', ucfirst($message['user_to'])));
