@@ -10,7 +10,7 @@ class UsersController extends AppController
     {
         $user = $this->request->getSession()->read('Auth')->username;
         if ($user == 'admin') {
-            $users = $this->Users;
+            $users = $this->paginate($this->Users);
 
             $this->set(compact('users'));
         } else $this->redirect('/chat');
