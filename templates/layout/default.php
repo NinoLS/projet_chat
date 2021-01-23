@@ -42,7 +42,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <body>
     <nav class="top-nav">
         <div class="top-nav-title">
-            <a href="<?= $this->Url->build('/') ?>" style="text-decoration-color:#5cb85c;"><span>Chat</span><span class="text-success">0nin</span></a>
+            <a href="<?= $this->Url->build('/') ?>" style="text-decoration-color:#5cb85c;"><span>Chat</span><span class="text-success">0nin</span><span class="text-info" style="opacity:50%;">_v1.1</span></a>
         </div>
     </nav>
     <main class="main">
