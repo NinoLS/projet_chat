@@ -10,7 +10,7 @@ class MessagesController extends AppController
 {
     public function index()
     {
-        $user = $this->request->getSession()->read('Auth')->username;
+        $user = strtolower($this->request->getSession()->read('Auth')->username);
         $messages = $this->Messages->find()
             ->where(
                 [
@@ -41,7 +41,7 @@ class MessagesController extends AppController
 
     public function add($friend_with)
     {
-        $user = $this->request->getSession()->read('Auth')->username;
+        $user = strtolower($this->request->getSession()->read('Auth')->username);
         $friend_with = strtolower($friend_with);
 
         //users who added me

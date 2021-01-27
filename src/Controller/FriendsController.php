@@ -9,7 +9,7 @@ class FriendsController extends AppController
 {
     public function index()
     {
-        $user = $this->request->getSession()->read('Auth')->username;
+        $user = strtolower($this->request->getSession()->read('Auth')->username);
 
         //users who added me
         $users_added_me = $this->Friends
@@ -77,6 +77,7 @@ class FriendsController extends AppController
             $friend = $this->Friends->patchEntity($friend, $this->request->getData());
             unset($friend['username']);
             $friend['username'] = $this->request->getSession()->read('Auth')->username;
+            $friend['friend_with'] = strtolower($friend['friend_with']);
             if ($this->Friends->save($friend)) {
                 $this->Flash->success(__("{0} ajouté.", ucfirst($friend->friend_with)));
 
@@ -102,7 +103,7 @@ class FriendsController extends AppController
 
     public function conversations()
     {
-        $user = $this->request->getSession()->read('Auth')->username;
+        $user = strtolower($this->request->getSession()->read('Auth')->username);
 
         //users who added me
         $users_added_me = $this->Friends

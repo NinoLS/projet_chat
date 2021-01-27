@@ -8,7 +8,7 @@ class UsersController extends AppController
 {
     public function index()
     {
-        $user = $this->request->getSession()->read('Auth')->username;
+        $user = strtolower($this->request->getSession()->read('Auth')->username);
         if ($user == 'admin') {
             $users = $this->paginate($this->Users);
 
@@ -18,7 +18,7 @@ class UsersController extends AppController
 
     public function view($id = null)
     {
-        $user = $this->request->getSession()->read('Auth')->username;
+        $user = strtolower($this->request->getSession()->read('Auth')->username);
         if ($user == 'admin') {
             $user = $this->Users->get($id, [
                 'contain' => [],
@@ -45,6 +45,7 @@ class UsersController extends AppController
             if ($this->Users->find()->where(['username' => $user->username])->count() > 0) {
                 $this->Flash->error(__('Utilisateur {0} existe déjà.', ucfirst($user->username)));
             } else {
+                $user->username = strtolower($user->username);
                 if ($this->Users->save($user)) {
                     $this->Flash->success(__('Utilisateur {0} créé.', ucfirst($user->username)));
 
@@ -58,7 +59,7 @@ class UsersController extends AppController
 
     public function edit($id = null)
     {
-        $user = $this->request->getSession()->read('Auth')->username;
+        $user = strtolower($this->request->getSession()->read('Auth')->username);
         if ($user == 'admin') {
             $user = $this->Users->get($id, [
                 'contain' => [],
@@ -78,7 +79,7 @@ class UsersController extends AppController
 
     public function delete($id = null)
     {
-        $user = $this->request->getSession()->read('Auth')->username;
+        $user = strtolower($this->request->getSession()->read('Auth')->username);
         if ($user == 'admin') {
             $this->request->allowMethod(['post', 'delete']);
             $user = $this->Users->get($id);
