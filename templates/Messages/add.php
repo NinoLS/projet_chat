@@ -23,7 +23,14 @@
                     echo '</div>';
                 }
                 echo '<div class="col-2">';
-                echo '<p class="text-dark">' . $all_messages->skip($i)->first()->created . '</p>';
+                $date = $all_messages->skip($i)->first()->created;
+                $tmp_date = explode(',',$date);
+                if(strpos($tmp_date[1],'PM') != false)
+                {
+                    $tmp_hour = explode(":",$tmp_date[1]);
+                    $tmp_hour[0] += 12;
+                }
+                echo '<p class="text-dark">' . $tmp_date[0].", ".$tmp_hour[0].":".substr($tmp_hour[1],0,strlen($tmp_hour[1])-3) . '</p>';
                 echo '</div></div>';
                 $i++;
             } ?>
