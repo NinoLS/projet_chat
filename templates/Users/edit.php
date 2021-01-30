@@ -16,18 +16,18 @@
             <?= $this->Form->create($user) ?>
             <fieldset>
                 <h3><?= __('Editer compte') ?></h3>
-                <?= $this->Form->control('password') ?>
+                <?= $this->Form->control('password',['label' => 'Mot de passe']) ?>
                 <ul id="error_password" class="mb-5 d-none">
                     <li>8 caractères minimum</li>
                     <li>Une lettre minimum</li>
                     <li>Un chiffre minimum</li>
                 </ul>
-                <?= $this->Form->control('Confirm Password',['type' => 'password','id' => "confirm_password"]) ?>
+                <?= $this->Form->control('Confirm Password',['type' => 'password','id' => "confirm_password",'label' => 'Confirmer']) ?>
                 <ul id="error_confirm_password" class="mb-5 d-none">
                     <li>Le mot de passe ne correspond pas.</li>
                 </ul>
             </fieldset>
-            <?= $this->Form->button(__('Submit'), ['class' => 'bg-success border-0 ','id' => "send_button"]) ?>
+            <?= $this->Form->button(__('Envoyer'), ['class' => 'bg-success border-0 ','id' => "send_button"]) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>

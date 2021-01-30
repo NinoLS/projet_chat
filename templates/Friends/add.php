@@ -9,7 +9,7 @@
             <fieldset>
                 <?php
                 //echo $this->Form->control('username');
-                echo $this->Form->control('friend_with');
+                echo $this->Form->control('friend_with',['label' => 'Pseudo']);
                 ?>
             </fieldset>
             <button type="submit" class="button bg-success border-0 text-white">Envoyer</button>

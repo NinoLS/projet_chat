@@ -11,8 +11,8 @@
             <?= $this->Form->create() ?>
             <fieldset>
                 <!-- <legend><?= __("Veuillez s'il vous plaît entrer votre nom d'utilisateur et votre mot de passe") ?></legend> -->
-                <?= $this->Form->control('username', ['required' => true]) ?>
-                <?= $this->Form->control('password', ['required' => true]) ?>
+                <?= $this->Form->control('username', ['required' => true,'label' => 'Pseudo']) ?>
+                <?= $this->Form->control('password', ['required' => true,'label' => 'Mot de passe']) ?>
             </fieldset>
             <?= $this->Form->submit(__('Login'), ['class' => 'bg-success border-0']); ?>
             <?= $this->Form->end() ?>
