@@ -60,18 +60,18 @@ class UsersController extends AppController
     public function edit($id = null)
     {
         $user = strtolower($this->request->getSession()->read('Auth')->username);
-        if ($user == 'admin') {
+        if ($user == 'admin' || $id == $user) {
             $user = $this->Users->get($id, [
                 'contain' => [],
             ]);
             if ($this->request->is(['patch', 'post', 'put'])) {
                 $user = $this->Users->patchEntity($user, $this->request->getData());
                 if ($this->Users->save($user)) {
-                    $this->Flash->success(__('Utilisateur {0} édité.', ucfirst($user->username)));
+                    $this->Flash->success(__('Compte {0} édité.', ucfirst($user->username)));
 
                     return $this->redirect(['action' => 'index']);
                 }
-                $this->Flash->error(__('Utilisateur {0} non édité.', ucfirst($user->username)));
+                $this->Flash->error(__('Compte {0} non édité.', ucfirst($user->username)));
             }
             $this->set(compact('user'));
         } else $this->redirect('/chat');

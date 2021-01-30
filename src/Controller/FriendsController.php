@@ -141,6 +141,6 @@ class FriendsController extends AppController
                 'friend_with IN' => ($names_friends != array()) ? $names_friends : ['null']
             ]);
 
-        $this->set(compact('conversations'));
+        $this->set(compact('conversations','user'));
     }
 }
