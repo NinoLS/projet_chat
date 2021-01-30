@@ -20,3 +20,35 @@
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script>
+    $(function() {
+        $("#username").blur(verif_username);
+        $("#password").blur(verif_password);
+
+        $("#send_button").click(function() {
+            if (verif_username() & verif_password()) {
+                return true;
+            } else return false;
+        })
+    });
+
+    function verif_username() {
+        let username = $("#username").val().trim();
+        if (!username) {
+            $("#username").addClass("border-danger text-danger");
+        } else {
+            $("#username").removeClass("border-danger text-danger");
+        }
+    }
+
+    function verif_password() {
+        let password = $("#password").val();
+        if (!password) {
+            $("#password").addClass("border-danger text-danger");
+        } else {
+            $("#password").removeClass("border-danger text-danger");
+        }
+    }
+</script>
