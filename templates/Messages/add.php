@@ -2,7 +2,6 @@
     $key = "toutaunefinsauflasaucissequienadeux01012021";
     $methods = openssl_get_cipher_methods();
 ?>
-
 <div class="row">
     <div class="messages index content col-10 mx-auto">
         <h3><?= __("Conversation avec 
