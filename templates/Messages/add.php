@@ -30,7 +30,8 @@
                     $tmp_hour = explode(":",$tmp_date[1]);
                     $tmp_hour[0] += 12;
                 }
-                echo '<p class="text-dark">' . $tmp_date[0].", ".$tmp_hour[0].":".substr($tmp_hour[1],0,strlen($tmp_hour[1])-3) . '</p>';
+                $tmp_date = explode("/",$tmp_date[0]);
+                echo '<p class="text-dark">' . $tmp_date[1]."/".$tmp_date[0]."/".$tmp_date[2].", ".$tmp_hour[0].":".substr($tmp_hour[1],0,strlen($tmp_hour[1])-3) . '</p>';
                 echo '</div></div>';
                 $i++;
             } ?>
