@@ -1,3 +1,8 @@
+<?php 
+    $key = "toutaunefinsauflasaucissequienadeux01012021";
+    $methods = openssl_get_cipher_methods();
+?>
+
 <div class="row">
     <div class="messages index content col-10 mx-auto">
         <h3><?= __("Conversation avec 
@@ -11,11 +16,11 @@
                 echo '<div class="row mt-1">';
                 if ($all_messages->skip($i)->first()->user_from == $friend_with) {
                     echo '<div class="col-5">';
-                    echo '<p class="text-success table-success px-3 py-1 float-left"">' . $all_messages->skip($i)->first()->message . "</p>";
+                    echo '<p class="text-success table-success px-3 py-1 float-left"">' . openssl_decrypt($all_messages->skip($i)->first()->message,$methods[64],$key) . "</p>";
                     echo '</div><div class="col-5"></div>';
                 } else {
                     echo '<div class="col-5"></div><div class="col-5">';
-                    echo '<p class="text-dark table-secondary px-3 py-1 float-right">' . $all_messages->skip($i)->first()->message . "</p>";
+                    echo '<p class="text-dark table-secondary px-3 py-1 float-right">' . openssl_decrypt($all_messages->skip($i)->first()->message,$methods[64],$key) . "</p>";
                     echo '</div>';
                 }
                 echo '<div class="col-2">';
