@@ -175,7 +175,7 @@ class MessagesController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $message = $this->Messages->get($id);
         if ($this->Messages->delete($message)) {
-            $this->Flash->success(__('Message "{0}.." supprimé.', $message->message));
+            $this->Flash->success(__('Message supprimé.'));
         } else {
             $this->Flash->error(__("Message non supprimé: rééssayez ou contactez l'administrateur."));
         }
