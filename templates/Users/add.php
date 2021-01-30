@@ -16,13 +16,13 @@
                     <li>Pas d'espace</li>
                 </ul>
                 <?= $this->Form->control('password') ?>
-                <ul id="error_password" class="mb-5 d-none">
-                    <li>8-20 caractères</li>
-                    <li>Chiffres, lettres, tirets</li>
-                    <li>Pas d'espace</li>
+                <ul id="error_password" class="d-none">
+                    <li>8 caractères minimum</li>
+                    <li>Une lettre minimum</li>
+                    <li>Un chiffre minimum</li>
                 </ul>
             </fieldset>
-            <?= $this->Form->button(__('Créer'), ['class' => "bg-success border-0"]) ?>
+            <?= $this->Form->button(__('Créer'), ['class' => "bg-success border-0", 'id' => "send_button"]) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>
@@ -35,10 +35,16 @@
     $(function() {
         $("#username").blur(verif_username);
         $("#password").blur(verif_password);
+
+        $("#send_button").click(function() {
+            if (verif_username() & verif_password()) {
+                return true;
+            } else return false;
+        })
     });
 
     //VERIF GLOBALE : 
-    /* compte classe error (pas ouf)  
+    /* compte classe text-danger (pas ouf)  
     /* verif de tout <=> appel de toutes les fonctions
     */
 
@@ -47,12 +53,24 @@
         if (username.length < 8 || username.length > 20 || !username.match(/^[A-Za-z0-9_-]*$/)) {
             $("#username").addClass("border-danger text-danger");
             $("#error_username").removeClass("d-none");
+            return false;
         } else {
             $("#username").removeClass("border-danger text-danger");
             $("#error_username").addClass("d-none");
+            return true;
         }
     }
 
     function verif_password() {
+        let password = $("#password").val();
+        if (!password || !password.match(/[0-9]/) || !password.match(/[A-Za-z]/)) {
+            $("#password").addClass("border-danger text-danger");
+            $("#error_password").removeClass("d-none");
+            return false;
+        } else {
+            $("#password").removeClass("border-danger text-danger");
+            $("#error_password").addClass("d-none");
+            return true;
+        }
     }
 </script>
