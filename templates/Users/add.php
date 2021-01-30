@@ -39,7 +39,7 @@
     $(function() {
         $("#username").blur(verif_username);
         $("#password").blur(verif_password);
-        $("#confirm_password").blur(verif_confirm_password);
+        $("#confirm_password").keyup(verif_confirm_password);
         
         //si on a modifié les 2 champs
         //action sur password => verif sur password & confirm_password
@@ -51,7 +51,7 @@
 
 
 
-        
+
         $("#send_button").click(function() {
             if (verif_username() & verif_password() & verif_confirm_password()) {
                 return true;
