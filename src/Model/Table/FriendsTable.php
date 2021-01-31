@@ -68,7 +68,7 @@ class FriendsTable extends Table
     {
         //CHANGEMENT: friend_with 
         $rules->add($rules->isUnique(['username', 'friend_with']), ['errorField' => 'friend_with', 'message' => "Déjà ajouté!"]);
-        $rules->add($rules->existsIn('friend_with', 'Users'), ['errorField' => 'friend_with', 'message' => 'Compte inexistant!']);
+        $rules->add($rules->existsIn('friend_with', 'Users'), ['errorField' => 'friend_with', 'message' => 'Utilisateur introuvable!']);
         return $rules;
     }
 }

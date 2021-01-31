@@ -92,7 +92,7 @@ class UsersTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->isUnique(['username']), ['errorField' => 'username']);
+        $rules->add($rules->isUnique(['username']), ['errorField' => 'username','message' => 'Déjà pris']);
 
         return $rules;
     }

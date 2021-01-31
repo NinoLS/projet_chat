@@ -99,8 +99,6 @@ class MessagesTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn('user_to', 'Users'), ['errorField' => 'user_to', 'message' => 'Utilisateur inexistant!']);
-        //ou vérification côté Controller
-        //=> association messages x friends
         return $rules;
     }
 }
