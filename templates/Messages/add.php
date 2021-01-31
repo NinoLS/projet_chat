@@ -23,15 +23,18 @@
                     echo '</div>';
                 }
                 echo '<div class="col-2">';
+
+
+                //DATE & HEURE
                 $date = $all_messages->skip($i)->first()->created;
-                $tmp_date = explode(',',$date);
-                if(strpos($tmp_date[1],'PM') != false)
-                {
-                    $tmp_hour = explode(":",$tmp_date[1]);
+                $tmp_time = explode(',',$date); //on sépare heure & date
+                $tmp_hour = explode(":",$tmp_time[1]); //on sépare heures & minutes
+
+                if(strpos($tmp_time[1],'PM') != false) //si PM => +12h sur les heures
                     $tmp_hour[0] += 12;
-                }
-                $tmp_date = explode("/",$tmp_date[0]);
-                echo '<p class="text-dark">' . $tmp_date[1]."/".$tmp_date[0]."/".$tmp_date[2].", ".$tmp_hour[0].":".substr($tmp_hour[1],0,strlen($tmp_hour[1])-3) . '</p>';
+
+                $tmp_time = explode("/",$tmp_time[0]); //on sépare jour,mois,année
+                echo '<p class="text-dark mt-1">' . $tmp_time[1]."/".$tmp_time[0].", ".$tmp_hour[0].":".substr($tmp_hour[1],0,strlen($tmp_hour[1])-3) . '</p>'; //-3 : "_PM" enlevé
                 echo '</div></div>';
                 $i++;
             } ?>
